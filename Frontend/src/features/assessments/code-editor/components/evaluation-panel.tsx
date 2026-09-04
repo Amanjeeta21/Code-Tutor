@@ -248,21 +248,21 @@ export function EvaluationPanel({
   // Color helper based on verdict
   const getVerdictTheme = () => {
     if (isEvaluating)
-      return { text: 'text-amber-400', border: 'border-amber-500/30', bg: 'bg-amber-950/20' };
+      return { text: 'text-[#5c6f1d]', border: 'border-[#a5bd3c]/30', bg: 'bg-[#e8f2ad]/20' };
     const verdict = result?.verdict;
     if (verdict === 'Pass') {
       return {
-        text: 'text-emerald-400',
-        border: 'border-emerald-500/20',
+        text: 'text-[#5f7800]',
+        border: 'border-[#8aa500]/20',
         bg: 'bg-emerald-950/20',
         stroke: '#10B981',
       };
     }
     if (verdict === 'Partial Pass') {
       return {
-        text: 'text-amber-400',
-        border: 'border-amber-500/20',
-        bg: 'bg-amber-950/20',
+        text: 'text-[#5c6f1d]',
+        border: 'border-[#a5bd3c]/20',
+        bg: 'bg-[#e8f2ad]/20',
         stroke: '#F59E0B',
       };
     }
@@ -277,12 +277,12 @@ export function EvaluationPanel({
   const theme = getVerdictTheme();
 
   return (
-    <div className="flex h-full flex-col border-l border-[#30363D] bg-[#0D1117] font-sans text-slate-200 antialiased">
+    <div className="flex h-full flex-col border-l border-[#d8d0bb] bg-[#fffaf0] font-sans text-[#10170d] antialiased">
       {/* Sidebar Header */}
-      <div className="flex shrink-0 items-center justify-between border-b border-[#30363D] px-4 py-3">
+      <div className="flex shrink-0 items-center justify-between border-b border-[#d8d0bb] px-4 py-3">
         <div className="flex items-center gap-2">
-          <Brain className="h-4 w-4 text-[#6C63FF]" />
-          <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400">
+          <Brain className="h-4 w-4 text-[#5c6f1d]" />
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#514b3d]">
             Agentic Evaluation
           </span>
         </div>
@@ -290,15 +290,15 @@ export function EvaluationPanel({
           {isEvaluating && (
             <div className="flex items-center gap-1.5">
               <span className="relative flex h-2 w-2">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75"></span>
-                <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500"></span>
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#bdd45a] opacity-75"></span>
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-[#a5bd3c]"></span>
               </span>
-              <span className="font-mono text-[10px] text-amber-400">Evaluating...</span>
+              <span className="font-mono text-[10px] text-[#5c6f1d]">Evaluating...</span>
             </div>
           )}
           <button
             onClick={onClose}
-            className="rounded p-1 text-slate-500 transition hover:bg-[#161B22] hover:text-white"
+            className="rounded p-1 text-[#8a836f] transition hover:bg-[#fffaf0] hover:text-[#10170d]"
           >
             <span className="font-mono text-xs font-bold">✖</span>
           </button>
@@ -313,7 +313,7 @@ export function EvaluationPanel({
             <XCircle className="h-5 w-5 shrink-0 text-rose-500" />
             <div>
               <p className="font-bold">Evaluation Interrupted</p>
-              <p className="mt-1 font-mono leading-relaxed text-slate-400">{error}</p>
+              <p className="mt-1 font-mono leading-relaxed text-[#514b3d]">{error}</p>
             </div>
           </div>
         )}
@@ -324,13 +324,13 @@ export function EvaluationPanel({
             className={`rounded-xl border ${theme.border} ${theme.bg} flex items-center justify-between p-4`}
           >
             <div>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#8a836f]">
                 Evaluation Verdict
               </span>
               <h2 className={`text-xl font-black ${theme.text} mt-0.5 tracking-tight`}>
                 {result.verdict}
               </h2>
-              <p className="mt-1.5 font-mono text-[11px] text-slate-400">
+              <p className="mt-1.5 font-mono text-[11px] text-[#514b3d]">
                 {result.testResults?.passed}/{result.testResults?.total} testsPassed
                 {result.complexity?.timeComplexity && ` · ${result.complexity.timeComplexity}`}
               </p>
@@ -343,7 +343,7 @@ export function EvaluationPanel({
                   cx="40"
                   cy="40"
                   r={radius}
-                  className="stroke-slate-800"
+                  className="stroke-[#d8d0bb]"
                   strokeWidth="6"
                   fill="transparent"
                 />
@@ -361,15 +361,15 @@ export function EvaluationPanel({
               </svg>
               <div className="absolute flex flex-col items-center">
                 <span className="text-sm font-black tracking-tight">{score}</span>
-                <span className="text-[8px] font-bold uppercase text-slate-500">Score</span>
+                <span className="text-[8px] font-bold uppercase text-[#8a836f]">Score</span>
               </div>
             </div>
           </div>
         )}
 
         {/* 2. Agent Trace Graph */}
-        <div className="rounded-xl border border-[#30363D] bg-[#161B22] p-4">
-          <h3 className="mb-3 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+        <div className="rounded-xl border border-[#d8d0bb] bg-[#fffaf0] p-4">
+          <h3 className="mb-3 text-[10px] font-bold uppercase tracking-wider text-[#8a836f]">
             Execution Trace pipeline
           </h3>
           <div className="space-y-2.5">
@@ -379,22 +379,22 @@ export function EvaluationPanel({
               const isSkipped = node.status === 'skipped';
               const isErr = node.status === 'error';
 
-              let statusColor = 'text-slate-600';
+              let statusColor = 'text-[#514b3d]';
               let statusText = 'Pending';
-              let dotClass = 'bg-slate-700';
+              let dotClass = 'bg-[#c8bea5]';
 
               if (isRunning) {
-                statusColor = 'text-indigo-400 font-bold';
+                statusColor = 'text-[#5c6f1d] font-bold';
                 statusText = 'Executing...';
-                dotClass = 'bg-indigo-500 animate-pulse ring-4 ring-indigo-900/35';
+                dotClass = 'bg-[#a5bd3c] animate-pulse ring-4 ring-[#e8f2ad]/35';
               } else if (isDone) {
-                statusColor = 'text-emerald-400';
+                statusColor = 'text-[#5f7800]';
                 statusText = node.duration !== null ? `${node.duration}ms` : 'Complete';
-                dotClass = 'bg-emerald-500';
+                dotClass = 'bg-[#8aa500]';
               } else if (isSkipped) {
-                statusColor = 'text-slate-500 line-through';
+                statusColor = 'text-[#8a836f] line-through';
                 statusText = 'Skipped';
-                dotClass = 'bg-slate-800 border border-slate-700';
+                dotClass = 'bg-[#ded7c8] border border-[#c8bea5]';
               } else if (isErr) {
                 statusColor = 'text-rose-400 font-bold';
                 statusText = 'Error';
@@ -405,7 +405,7 @@ export function EvaluationPanel({
                 <div key={node.id} className="flex items-center justify-between text-xs">
                   <div className="flex items-center gap-3">
                     <span className={`h-2 w-2 rounded-full ${dotClass} shrink-0`} />
-                    <span className={isSkipped ? 'text-slate-500 line-through' : 'text-slate-300'}>
+                    <span className={isSkipped ? 'text-[#8a836f] line-through' : 'text-[#26351d]'}>
                       {node.name}
                     </span>
                   </div>
@@ -418,22 +418,22 @@ export function EvaluationPanel({
 
         {/* 3. Test Cases (Collapsible) */}
         {(!isEvaluating || result) && result && (
-          <div className="overflow-hidden rounded-xl border border-[#30363D] bg-[#161B22]">
+          <div className="overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#fffaf0]">
             <button
               onClick={() => setCollapseTests(!collapseTests)}
-              className="flex w-full items-center justify-between border-b border-[#30363D]/60 bg-[#1C2333]/30 px-4 py-3 transition hover:bg-[#1C2333]/50"
+              className="flex w-full items-center justify-between border-b border-[#d8d0bb]/60 bg-[#ece5d5]/30 px-4 py-3 transition hover:bg-[#ece5d5]/50"
             >
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-emerald-400" />
-                <span className="text-xs font-bold text-slate-300">Test Cases</span>
-                <span className="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-400">
+                <CheckCircle2 className="h-4 w-4 text-[#5f7800]" />
+                <span className="text-xs font-bold text-[#26351d]">Test Cases</span>
+                <span className="rounded bg-[#ded7c8] px-2 py-0.5 font-mono text-[10px] text-[#514b3d]">
                   {result.testResults?.passed}/{result.testResults?.total} Passed
                 </span>
               </div>
               {collapseTests ? (
-                <ChevronDown className="h-4 w-4 text-slate-500" />
+                <ChevronDown className="h-4 w-4 text-[#8a836f]" />
               ) : (
-                <ChevronUp className="h-4 w-4 text-slate-500" />
+                <ChevronUp className="h-4 w-4 text-[#8a836f]" />
               )}
             </button>
 
@@ -442,9 +442,9 @@ export function EvaluationPanel({
                 {result.testResults?.results?.map((tr: any) => (
                   <div key={tr.testCase} className="space-y-1.5 pt-3 first:pt-0">
                     <div className="flex items-center justify-between text-xs">
-                      <span className="font-bold text-slate-400">Test Case #{tr.testCase + 1}</span>
+                      <span className="font-bold text-[#514b3d]">Test Case #{tr.testCase + 1}</span>
                       {tr.passed ? (
-                        <span className="flex items-center gap-1 text-[10px] font-bold text-emerald-400">
+                        <span className="flex items-center gap-1 text-[10px] font-bold text-[#5f7800]">
                           <CheckCircle2 className="h-3.5 w-3.5" /> Passed
                         </span>
                       ) : (
@@ -453,15 +453,15 @@ export function EvaluationPanel({
                         </span>
                       )}
                     </div>
-                    <div className="grid grid-cols-1 gap-1 rounded-lg border border-[#30363D]/40 bg-[#0D1117] p-2.5 font-mono text-[10px] text-slate-400">
+                    <div className="grid grid-cols-1 gap-1 rounded-lg border border-[#d8d0bb]/40 bg-[#fffaf0] p-2.5 font-mono text-[10px] text-[#514b3d]">
                       <div>
-                        <span className="text-slate-600">Input:</span> {tr.input}
+                        <span className="text-[#514b3d]">Input:</span> {tr.input}
                       </div>
                       <div>
-                        <span className="text-slate-600">Expected:</span> {tr.expected}
+                        <span className="text-[#514b3d]">Expected:</span> {tr.expected}
                       </div>
                       <div className={!tr.passed ? 'text-rose-400' : ''}>
-                        <span className="text-slate-600">Actual:</span> {tr.actual || 'null'}
+                        <span className="text-[#514b3d]">Actual:</span> {tr.actual || 'null'}
                       </div>
                       {tr.error && (
                         <div className="mt-1 font-sans text-rose-500">
@@ -478,58 +478,58 @@ export function EvaluationPanel({
 
         {/* 4. Complexity Section (Collapsible) */}
         {(!isEvaluating || result) && result && (
-          <div className="overflow-hidden rounded-xl border border-[#30363D] bg-[#161B22]">
+          <div className="overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#fffaf0]">
             <button
               onClick={() => setCollapseComplexity(!collapseComplexity)}
-              className="flex w-full items-center justify-between border-b border-[#30363D]/60 bg-[#1C2333]/30 px-4 py-3 transition hover:bg-[#1C2333]/50"
+              className="flex w-full items-center justify-between border-b border-[#d8d0bb]/60 bg-[#ece5d5]/30 px-4 py-3 transition hover:bg-[#ece5d5]/50"
             >
               <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-amber-400" />
-                <span className="text-xs font-bold text-slate-300">Complexity Analysis</span>
+                <Zap className="h-4 w-4 text-[#5c6f1d]" />
+                <span className="text-xs font-bold text-[#26351d]">Complexity Analysis</span>
               </div>
               {collapseComplexity ? (
-                <ChevronDown className="h-4 w-4 text-slate-500" />
+                <ChevronDown className="h-4 w-4 text-[#8a836f]" />
               ) : (
-                <ChevronUp className="h-4 w-4 text-slate-500" />
+                <ChevronUp className="h-4 w-4 text-[#8a836f]" />
               )}
             </button>
 
             {!collapseComplexity && result.complexity && (
               <div className="space-y-3 p-4">
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl border border-[#30363D]/50 bg-[#1C2333]/45 p-3 text-center">
-                    <span className="text-[10px] font-bold uppercase text-slate-500">
+                  <div className="rounded-xl border border-[#d8d0bb]/50 bg-[#ece5d5]/45 p-3 text-center">
+                    <span className="text-[10px] font-bold uppercase text-[#8a836f]">
                       Time Complexity
                     </span>
-                    <p className="mt-1 font-mono text-lg font-black text-[#6C63FF]">
+                    <p className="mt-1 font-mono text-lg font-black text-[#5c6f1d]">
                       {result.complexity.timeComplexity}
                     </p>
                   </div>
-                  <div className="rounded-xl border border-[#30363D]/50 bg-[#1C2333]/45 p-3 text-center">
-                    <span className="text-[10px] font-bold uppercase text-slate-500">
+                  <div className="rounded-xl border border-[#d8d0bb]/50 bg-[#ece5d5]/45 p-3 text-center">
+                    <span className="text-[10px] font-bold uppercase text-[#8a836f]">
                       Space Complexity
                     </span>
-                    <p className="mt-1 font-mono text-lg font-black text-[#6C63FF]">
+                    <p className="mt-1 font-mono text-lg font-black text-[#5c6f1d]">
                       {result.complexity.spaceComplexity}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-2 flex items-center justify-between rounded-lg border border-[#30363D]/40 bg-[#0D1117] p-2.5">
-                  <span className="text-[11px] text-slate-400">Optimal Solution Status</span>
+                <div className="mt-2 flex items-center justify-between rounded-lg border border-[#d8d0bb]/40 bg-[#fffaf0] p-2.5">
+                  <span className="text-[11px] text-[#514b3d]">Optimal Solution Status</span>
                   {result.complexity.isOptimal ? (
-                    <span className="rounded-full border border-emerald-500/20 bg-emerald-500/10 px-2 py-0.5 text-[10px] font-bold text-emerald-400">
+                    <span className="rounded-full border border-[#8aa500]/20 bg-[#8aa500]/10 px-2 py-0.5 text-[10px] font-bold text-[#5f7800]">
                       ✓ Optimal
                     </span>
                   ) : (
-                    <span className="rounded-full border border-amber-500/20 bg-amber-500/10 px-2 py-0.5 text-[10px] font-bold text-amber-400">
+                    <span className="rounded-full border border-[#a5bd3c]/20 bg-[#a5bd3c]/10 px-2 py-0.5 text-[10px] font-bold text-[#5c6f1d]">
                       ⚠️ Sub-optimal
                     </span>
                   )}
                 </div>
 
                 {result.complexity.suggestion && (
-                  <div className="rounded-lg border border-amber-500/20 bg-amber-950/10 p-3 text-[11px] leading-relaxed text-amber-300">
+                  <div className="rounded-lg border border-[#a5bd3c]/20 bg-[#e8f2ad]/10 p-3 text-[11px] leading-relaxed text-[#405400]">
                     {result.complexity.suggestion}
                   </div>
                 )}
@@ -540,53 +540,53 @@ export function EvaluationPanel({
 
         {/* 5. Code Quality (Collapsible) */}
         {(!isEvaluating || result) && result && (
-          <div className="overflow-hidden rounded-xl border border-[#30363D] bg-[#161B22]">
+          <div className="overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#fffaf0]">
             <button
               onClick={() => setCollapseQuality(!collapseQuality)}
-              className="flex w-full items-center justify-between border-b border-[#30363D]/60 bg-[#1C2333]/30 px-4 py-3 transition hover:bg-[#1C2333]/50"
+              className="flex w-full items-center justify-between border-b border-[#d8d0bb]/60 bg-[#ece5d5]/30 px-4 py-3 transition hover:bg-[#ece5d5]/50"
             >
               <div className="flex items-center gap-2">
-                <Sparkles className="h-4 w-4 text-[#6C63FF]" />
-                <span className="text-xs font-bold text-slate-300">Code Quality</span>
-                <span className="rounded bg-slate-800 px-2 py-0.5 font-mono text-[10px] text-slate-400">
+                <Sparkles className="h-4 w-4 text-[#5c6f1d]" />
+                <span className="text-xs font-bold text-[#26351d]">Code Quality</span>
+                <span className="rounded bg-[#ded7c8] px-2 py-0.5 font-mono text-[10px] text-[#514b3d]">
                   {result.qualityGrade}
                 </span>
               </div>
               {collapseQuality ? (
-                <ChevronDown className="h-4 w-4 text-slate-500" />
+                <ChevronDown className="h-4 w-4 text-[#8a836f]" />
               ) : (
-                <ChevronUp className="h-4 w-4 text-slate-500" />
+                <ChevronUp className="h-4 w-4 text-[#8a836f]" />
               )}
             </button>
 
             {!collapseQuality && (
               <div className="space-y-3 p-4">
                 <div className="space-y-1">
-                  <div className="flex items-center justify-between text-xs text-slate-400">
+                  <div className="flex items-center justify-between text-xs text-[#514b3d]">
                     <span>Quality Score</span>
                     <span className="font-mono font-bold">{result.qualityScore}/100</span>
                   </div>
                   {/* Progress Bar */}
-                  <div className="h-2 w-full overflow-hidden rounded-full bg-slate-800">
+                  <div className="h-2 w-full overflow-hidden rounded-full bg-[#ded7c8]">
                     <div
-                      className="h-full bg-gradient-to-r from-indigo-500 to-[#6C63FF] transition-all duration-1000 ease-out"
+                      className="h-full bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] transition-all duration-1000 ease-out"
                       style={{ width: `${result.qualityScore}%` }}
                     />
                   </div>
                 </div>
 
                 {result.bugReport?.bugs && (
-                  <ul className="mt-2 list-inside list-disc space-y-2 text-xs text-slate-300">
+                  <ul className="mt-2 list-inside list-disc space-y-2 text-xs text-[#26351d]">
                     {result.bugReport.bugs
                       .filter((b: any) => b.type === 'static_warning')
                       .map((b: any, idx: number) => (
                         <li key={idx} className="leading-relaxed">
-                          <span className="font-bold text-amber-400">{b.message}</span>: {b.hint}
+                          <span className="font-bold text-[#5c6f1d]">{b.message}</span>: {b.hint}
                         </li>
                       ))}
                     {result.bugReport.bugs.filter((b: any) => b.type === 'static_warning')
                       .length === 0 && (
-                      <li className="list-none py-2 text-center italic text-slate-500">
+                      <li className="list-none py-2 text-center italic text-[#8a836f]">
                         No code quality issues identified.
                       </li>
                     )}
@@ -599,19 +599,19 @@ export function EvaluationPanel({
 
         {/* 6. Feedback (Collapsible) */}
         {(!isEvaluating || result) && result && result.feedback && (
-          <div className="overflow-hidden rounded-xl border border-[#30363D] bg-[#161B22]">
+          <div className="overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#fffaf0]">
             <button
               onClick={() => setCollapseFeedback(!collapseFeedback)}
-              className="flex w-full items-center justify-between border-b border-[#30363D]/60 bg-[#1C2333]/30 px-4 py-3 transition hover:bg-[#1C2333]/50"
+              className="flex w-full items-center justify-between border-b border-[#d8d0bb]/60 bg-[#ece5d5]/30 px-4 py-3 transition hover:bg-[#ece5d5]/50"
             >
               <div className="flex items-center gap-2">
-                <Brain className="h-4 w-4 text-amber-400" />
-                <span className="text-xs font-bold text-slate-300">Coach Feedback</span>
+                <Brain className="h-4 w-4 text-[#5c6f1d]" />
+                <span className="text-xs font-bold text-[#26351d]">Coach Feedback</span>
               </div>
               {collapseFeedback ? (
-                <ChevronDown className="h-4 w-4 text-slate-500" />
+                <ChevronDown className="h-4 w-4 text-[#8a836f]" />
               ) : (
-                <ChevronUp className="h-4 w-4 text-slate-500" />
+                <ChevronUp className="h-4 w-4 text-[#8a836f]" />
               )}
             </button>
 
@@ -621,7 +621,7 @@ export function EvaluationPanel({
                   return (
                     <div
                       key={idx}
-                      className="flex gap-2.5 rounded-lg border border-[#30363D]/50 bg-[#0D1117] p-3 text-xs leading-relaxed text-slate-300"
+                      className="flex gap-2.5 rounded-lg border border-[#d8d0bb]/50 bg-[#fffaf0] p-3 text-xs leading-relaxed text-[#26351d]"
                     >
                       <div className="mt-0.5 shrink-0 select-none text-base">
                         {item.startsWith('✅')
@@ -645,15 +645,15 @@ export function EvaluationPanel({
 
         {/* Option E: AI Coach Timeline */}
         {(!isEvaluating || result) && result && (isSupervisorRunning || (supervisorTimeline && supervisorTimeline.length > 0)) && (
-          <div className="overflow-hidden rounded-xl border border-slate-800 bg-[#0c101f]/60 p-4 shadow-inner">
-            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-slate-850">
-              <Brain className="h-3.5 w-3.5 text-indigo-400 animate-pulse" />
-              <span className="text-[11px] font-bold uppercase tracking-wider text-slate-300">AI Coach Timeline</span>
+          <div className="overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#ece5d5]/60 p-4 shadow-inner">
+            <div className="flex items-center gap-2 mb-3 pb-2 border-b border-[#d8d0bb]">
+              <Brain className="h-3.5 w-3.5 text-[#5c6f1d] animate-pulse" />
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#26351d]">AI Coach Timeline</span>
             </div>
             
             {isSupervisorRunning && supervisorTimeline.length === 0 ? (
-              <div className="flex items-center justify-center gap-2 py-4 text-xs text-indigo-400">
-                <span className="h-4 w-4 animate-spin rounded-full border-2 border-indigo-450 border-t-transparent" />
+              <div className="flex items-center justify-center gap-2 py-4 text-xs text-[#5c6f1d]">
+                <span className="h-4 w-4 animate-spin rounded-full border-2 border-[#a5bd3c] border-t-transparent" />
                 <span>Consulting AI Coach Workflow...</span>
               </div>
             ) : (
@@ -661,17 +661,17 @@ export function EvaluationPanel({
                 {supervisorTimeline.map((step: any, idx: number) => {
                   const stepText = typeof step === 'string' ? step : step.message || JSON.stringify(step);
                   return (
-                    <div key={idx} className="flex gap-2.5 text-[11px] leading-relaxed text-slate-400">
+                    <div key={idx} className="flex gap-2.5 text-[11px] leading-relaxed text-[#514b3d]">
                       <div className="flex flex-col items-center">
-                        <div className="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-indigo-500/10 text-[9px] font-bold text-indigo-400 border border-indigo-500/20">
+                        <div className="flex h-4.5 w-4.5 shrink-0 items-center justify-center rounded-full bg-[#a5bd3c]/10 text-[9px] font-bold text-[#5c6f1d] border border-[#a5bd3c]/20">
                           {idx + 1}
                         </div>
                         {idx < supervisorTimeline.length - 1 && (
-                          <div className="w-[1px] flex-1 bg-slate-800/80 my-1" />
+                          <div className="w-[1px] flex-1 bg-[#ded7c8]/80 my-1" />
                         )}
                       </div>
                       <div className="flex-1 pb-1">
-                        <p className="font-medium text-slate-300">{stepText}</p>
+                        <p className="font-medium text-[#26351d]">{stepText}</p>
                       </div>
                     </div>
                   );
@@ -688,7 +688,7 @@ export function EvaluationPanel({
               supervisorDecision.targetAgent === 'problem-recommendation-agent' ? (
                 <button
                   onClick={onConsultCoach}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-indigo-950/20 transition hover:from-indigo-450 hover:to-cyan-450"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#10170d] shadow-lg shadow-[#10200d]/20 transition hover:from-[#bdd45a] hover:to-[#8aa500]"
                 >
                   <Sparkles className="h-3.5 w-3.5 text-yellow-300 animate-spin" />
                   👉 Solve Next: {supervisorDecision?.payload?.title || 'Next Problem'}
@@ -696,15 +696,15 @@ export function EvaluationPanel({
               ) : supervisorDecision.targetAgent === 'mentor-agent' ? (
                 <button
                   onClick={onConsultCoach}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-amber-950/20 transition hover:from-amber-450 hover:to-orange-450"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#a5bd3c] to-orange-500 px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#10170d] shadow-lg shadow-[#10200d]/20 transition hover:from-[#bdd45a] hover:to-orange-450"
                 >
-                  <Brain className="h-3.5 w-3.5 text-white animate-bounce" />
+                  <Brain className="h-3.5 w-3.5 text-[#10170d] animate-bounce" />
                   💬 Get Hint from Mentor
                 </button>
               ) : (
                 <button
                   onClick={onConsultCoach}
-                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-indigo-650 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg hover:from-indigo-450 hover:to-indigo-550"
+                  className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#10170d] shadow-lg hover:from-[#bdd45a] hover:to-[#8aa500]"
                 >
                   <Sparkles className="h-3.5 w-3.5" />
                   ✨ Consult Coach
@@ -714,7 +714,7 @@ export function EvaluationPanel({
               <button
                 onClick={onConsultCoach}
                 disabled={isSupervisorRunning}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 px-4 py-3 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-indigo-950/20 transition hover:from-indigo-450 hover:to-cyan-450 disabled:opacity-50"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] px-4 py-3 text-xs font-bold uppercase tracking-wider text-[#10170d] shadow-lg shadow-[#10200d]/20 transition hover:from-[#bdd45a] hover:to-[#8aa500] disabled:opacity-50"
               >
                 {isSupervisorRunning ? (
                   <>
@@ -736,15 +736,15 @@ export function EvaluationPanel({
         {isEvaluating && !result && (
           <div className="space-y-4">
             {/* Shimmer 1 */}
-            <div className="flex h-16 animate-pulse items-center justify-between rounded-xl border border-[#30363D] bg-[#161B22] p-4">
-              <div className="h-3 w-1/3 rounded bg-slate-800" />
-              <div className="h-10 w-10 rounded-full bg-slate-800" />
+            <div className="flex h-16 animate-pulse items-center justify-between rounded-xl border border-[#d8d0bb] bg-[#fffaf0] p-4">
+              <div className="h-3 w-1/3 rounded bg-[#ded7c8]" />
+              <div className="h-10 w-10 rounded-full bg-[#ded7c8]" />
             </div>
             {/* Shimmer 2 */}
-            <div className="h-32 animate-pulse space-y-2.5 rounded-xl border border-[#30363D] bg-[#161B22] p-4">
-              <div className="h-3.5 w-1/2 rounded bg-slate-800" />
-              <div className="h-2 w-full rounded bg-slate-800" />
-              <div className="h-2 w-full rounded bg-slate-800" />
+            <div className="h-32 animate-pulse space-y-2.5 rounded-xl border border-[#d8d0bb] bg-[#fffaf0] p-4">
+              <div className="h-3.5 w-1/2 rounded bg-[#ded7c8]" />
+              <div className="h-2 w-full rounded bg-[#ded7c8]" />
+              <div className="h-2 w-full rounded bg-[#ded7c8]" />
             </div>
           </div>
         )}
@@ -753,3 +753,4 @@ export function EvaluationPanel({
   );
 }
 export default EvaluationPanel;
+

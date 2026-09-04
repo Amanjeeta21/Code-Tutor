@@ -55,7 +55,6 @@ export function CodeEditor({
   const tabSize = parseInt(localStorage.getItem('editor-tabSize') || '2');
   const wordWrap = localStorage.getItem('skill-lens-wordWrap') !== 'false' ? 'on' : 'off';
   const minimapEnabled = localStorage.getItem('skill-lens-minimap') === 'true';
-  const editorThemePreference = localStorage.getItem('editor-theme') || 'VS Code Dark';
 
   const editorRef    = useRef<any>(null);
   const monacoRef    = useRef<any>(null);
@@ -63,11 +62,7 @@ export function CodeEditor({
   const overlayRef   = useRef<HTMLDivElement | null>(null);
   const [editorMounted, setEditorMounted] = useState(false);
 
-  const monacoTheme = ['dracula', 'monokai', 'vs code dark', 'github dark'].some((t) =>
-    editorThemePreference.toLowerCase().includes(t),
-  )
-    ? 'vs-dark'
-    : 'vs';
+  const monacoTheme = 'code-tutor-light';
 
   // ─── Hover-overlay effect ────────────────────────────────────────────────
   useEffect(() => {
@@ -181,18 +176,40 @@ export function CodeEditor({
   }, [lineIssues, editorMounted]);
 
   const handleEditorMount: OnMount = (editor, monaco) => {
+    monaco.editor.defineTheme('code-tutor-light', {
+      base: 'vs',
+      inherit: true,
+      rules: [],
+      colors: {
+        'editor.background': '#fffaf0',
+        'editor.foreground': '#10170d',
+        'editorLineNumber.foreground': '#8a836f',
+        'editorLineNumber.activeForeground': '#5c6f1d',
+        'editor.lineHighlightBackground': '#e8f2ad55',
+        'editor.selectionBackground': '#a5bd3c55',
+        'editor.inactiveSelectionBackground': '#d8d0bb66',
+        'editorCursor.foreground': '#405400',
+        'editorGutter.background': '#fffaf0',
+        'editorWidget.background': '#fffaf0',
+        'editorWidget.border': '#d8d0bb',
+        'input.background': '#fffaf0',
+        'input.foreground': '#10170d',
+        'input.border': '#d8d0bb',
+      },
+    });
+    monaco.editor.setTheme('code-tutor-light');
     editorRef.current  = editor;
     monacoRef.current  = monaco;
     setEditorMounted(true);
   };
 
   return (
-    <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-slate-800/80 bg-[#1e1e1e]">
-      <div className="flex h-9 shrink-0 items-center justify-between border-b border-slate-800/80 bg-slate-900/10 px-4">
+    <div className="flex h-full w-full flex-col overflow-hidden rounded-xl border border-[#d8d0bb]/80 bg-[#fffaf0]">
+      <div className="flex h-9 shrink-0 items-center justify-between border-b border-[#d8d0bb]/80 bg-[#ece5d5]/10 px-4">
         <div className="flex items-center gap-4">
-          <div className="flex h-9 items-center gap-2 border-r border-slate-800/40 bg-slate-950/20 px-3 text-xs font-semibold text-slate-300">
+          <div className="flex h-9 items-center gap-2 border-r border-[#d8d0bb]/40 bg-[#fffaf0]/20 px-3 text-xs font-semibold text-[#26351d]">
             <span
-              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${isCodeLoading ? 'animate-pulse bg-blue-400' : 'bg-amber-400'}`}
+              className={`h-1.5 w-1.5 rounded-full transition-all duration-300 ${isCodeLoading ? 'animate-pulse bg-[#8aa500]' : 'bg-[#bdd45a]'}`}
             />
             <span>
               {isCodeLoading
@@ -202,7 +219,7 @@ export function CodeEditor({
           </div>
         </div>
 
-        <div className="font-mono text-[9px] uppercase tracking-widest text-slate-500">
+        <div className="font-mono text-[9px] uppercase tracking-widest text-[#8a836f]">
           {isCodeLoading ? 'Loading...' : language}
         </div>
       </div>
@@ -216,7 +233,7 @@ export function CodeEditor({
           theme={monacoTheme}
           onMount={handleEditorMount}
           loading={
-            <div className="flex h-full items-center justify-center bg-[#1e1e1e] text-sm text-slate-500">
+            <div className="flex h-full items-center justify-center bg-[#fffaf0] text-sm text-[#8a836f]">
               Loading editor...
             </div>
           }

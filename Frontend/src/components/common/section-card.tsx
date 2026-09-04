@@ -12,10 +12,10 @@ interface SectionCardProps {
 
 export function SectionCard({ title, children, className, contentClassName }: SectionCardProps) {
   return (
-    <Card className={cn('border-white/[0.06] bg-slate-950/60 backdrop-blur-xl', className)}>
+    <Card className={cn('border-[#d8d0bb] bg-[#fffaf0]/95 text-[#10170d] backdrop-blur-sm shadow-sm shadow-[#10200d]/5', className)}>
       {title && (
         <CardHeader className="pb-2">
-          <CardTitle className="font-mono text-[10px] uppercase tracking-wider text-slate-400">
+          <CardTitle className="font-mono text-[10px] uppercase tracking-wider text-[#5c6f1d]">
             {title}
           </CardTitle>
         </CardHeader>
@@ -24,3 +24,4 @@ export function SectionCard({ title, children, className, contentClassName }: Se
     </Card>
   );
 }
+

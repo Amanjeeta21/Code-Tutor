@@ -27,12 +27,12 @@ export function LanguageSelector({ selectedLanguage, onLanguageChange }: Languag
       onValueChange={(value) => onLanguageChange(value as SupportedLanguage)}
     >
       <SelectTrigger
-        className="min-h-10 w-40 border-white/[0.08] bg-slate-950/60 text-xs font-semibold text-slate-200 hover:border-cyan-300/40 hover:bg-slate-950/80"
+        className="min-h-10 w-40 border-[#d8d0bb] bg-[#fffaf0]/60 text-xs font-semibold text-[#10170d] hover:border-[#a5bd3c]/40 hover:bg-[#fffaf0]/80"
         aria-label="Select editor language"
       >
         <SelectValue placeholder="Language" />
       </SelectTrigger>
-      <SelectContent className="border-white/[0.08] bg-slate-950 text-slate-200">
+      <SelectContent className="border-[#d8d0bb] bg-[#fffaf0] text-[#10170d]">
         {(Object.keys(LANGUAGES) as SupportedLanguage[]).map((lang) => (
           <SelectItem key={lang} value={lang}>
             {LANGUAGES[lang]}
@@ -42,3 +42,4 @@ export function LanguageSelector({ selectedLanguage, onLanguageChange }: Languag
     </Select>
   );
 }
+

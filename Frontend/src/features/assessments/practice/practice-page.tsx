@@ -1,10 +1,7 @@
-import { useState, useEffect, useRef, Suspense, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { Variants } from 'framer-motion';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Text } from '@react-three/drei';
-import * as THREE from 'three';
 import {
   ChevronDown,
   ChevronLeft,
@@ -23,8 +20,6 @@ import { useTheme } from '@/providers/theme-provider';
 import { availableTopics } from './data/practice-data';
 import type { Question, Difficulty } from './types';
 
-const codeSymbols = ['{ }', '</>', '[]', '()', '=>', ';;', '++', '&&'];
-
 // --- Animation Variants ---
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
@@ -35,50 +30,6 @@ const itemVariants: Variants = {
   hidden: { opacity: 0, y: 15 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.4 } },
 };
-
-// --- 3D Background Component ---
-function Practice3DBackground({ isDark }: { isDark: boolean }) {
-  const groupRef = useRef<THREE.Group>(null);
-
-  useFrame((state) => {
-    if (groupRef.current) {
-      const t = state.clock.getElapsedTime();
-      groupRef.current.rotation.y = t * 0.05;
-      groupRef.current.rotation.x = Math.sin(t * 0.08) * 0.1;
-      groupRef.current.rotation.z = Math.cos(t * 0.05) * 0.08;
-    }
-  });
-
-  const floatingObjects = useMemo(() => {
-    return [...Array(20)].map((_, i) => ({
-      id: i,
-      symbol: codeSymbols[i % codeSymbols.length],
-      x: Math.sin(i * 12.9898) * 15,
-      y: Math.cos(i * 78.233) * 15,
-      z: Math.sin(i * 37.719) * 7.5 - 5,
-      speed: 1 + ((i * 7) % 10) / 10,
-    }));
-  }, []);
-
-  return (
-    <group ref={groupRef}>
-      {floatingObjects.map((obj) => (
-        <Float key={obj.id} speed={obj.speed} rotationIntensity={1} floatIntensity={2}>
-          <Text
-            position={[obj.x, obj.y, obj.z]}
-            fontSize={0.5}
-            color={isDark ? '#8b5cf6' : '#6d28d9'}
-            fillOpacity={isDark ? 0.3 : 0.85}
-            anchorX="center"
-            anchorY="middle"
-          >
-            {obj.symbol}
-          </Text>
-        </Float>
-      ))}
-    </group>
-  );
-}
 
 // --- Main Page Component ---
 export function PracticePage() {
@@ -179,42 +130,30 @@ export function PracticePage() {
   };
 
   const themeClass = isDark
-    ? 'dark bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#1a103c] via-[#0d081e] to-[#070510] text-slate-100'
-    : 'bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-100 via-violet-50 to-slate-100 text-slate-900';
+    ? 'bg-[#f4f0e6] text-[#10170d]'
+    : 'bg-[#f4f0e6] text-[#10170d]';
 
   const panelClass = isDark
-    ? 'rounded-2xl border border-violet-500/20 bg-[#120d20]/80 backdrop-blur-xl shadow-xl shadow-violet-950/20'
-    : 'rounded-2xl border border-violet-400/80 bg-white/80 backdrop-blur-xl shadow-xl shadow-violet-300/50';
+    ? 'rounded-2xl border border-[#d8d0bb] bg-[#fffaf0]/95 backdrop-blur-sm shadow-xl shadow-[#10200d]/10'
+    : 'rounded-2xl border border-[#d8d0bb] bg-[#fffaf0]/95 backdrop-blur-sm shadow-xl shadow-[#10200d]/10';
 
   const getDifficultyColor = (diff: string) => {
     if (diff === 'Easy')
-      return isDark
-        ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-        : 'text-emerald-700 bg-emerald-100 border-emerald-200';
+      return 'text-[#405400] bg-[#e8f2ad] border-[#a5bd3c]/40';
     if (diff === 'Medium')
-      return isDark
-        ? 'text-orange-400 bg-orange-500/10 border-orange-500/20'
-        : 'text-orange-700 bg-orange-100 border-orange-200';
+      return 'text-[#6a4300] bg-[#fff0c7] border-[#d8941f]/30';
     if (diff === 'Hard')
-      return isDark
-        ? 'text-rose-400 bg-rose-500/10 border-rose-500/20'
-        : 'text-rose-700 bg-rose-100 border-rose-200';
+      return 'text-[#7b2116] bg-[#ffe0d8] border-[#c75f4a]/30';
     return '';
   };
 
   const getStatusColor = (status: string) => {
     if (status === 'Not Attempted')
-      return isDark
-        ? 'text-slate-400 bg-slate-800 border-slate-700'
-        : 'text-slate-600 bg-slate-200 border-slate-300';
+      return 'text-[#5c5548] bg-[#ece5d5] border-[#d8d0bb]';
     if (status === 'Attempted')
-      return isDark
-        ? 'text-yellow-400 bg-yellow-500/10 border-yellow-500/20'
-        : 'text-yellow-700 bg-yellow-100 border-yellow-200';
+      return 'text-[#6b4b00] bg-[#fff1bd] border-[#d7a21d]/30';
     if (status === 'Solved')
-      return isDark
-        ? 'text-emerald-400 bg-emerald-500/10 border-emerald-500/20'
-        : 'text-emerald-700 bg-emerald-100 border-emerald-200';
+      return 'text-[#405400] bg-[#e8f2ad] border-[#a5bd3c]/40';
     return '';
   };
 
@@ -225,24 +164,6 @@ export function PracticePage() {
         themeClass,
       )}
     >
-      {/* 3D Background */}
-      <div
-        className={cn(
-          'pointer-events-none fixed inset-0 z-0 transition-opacity transform-gpu will-change-[transform,opacity]',
-          isDark ? 'opacity-100' : 'opacity-95',
-        )}
-      >
-        <Suspense fallback={null}>
-          <Canvas camera={{ position: [0, 0, 15], fov: 45 }}>
-            <ambientLight intensity={isDark ? 0.6 : 1.2} />
-            <Practice3DBackground isDark={isDark} />
-          </Canvas>
-        </Suspense>
-      </div>
-      {!isDark && (
-        <div className="pointer-events-none fixed inset-0 z-0 bg-[radial-gradient(circle_at_18%_24%,rgba(124,58,237,0.18),transparent_28%),radial-gradient(circle_at_82%_32%,rgba(139,92,246,0.16),transparent_26%)]" />
-      )}
-
       {/* Top Navigation */}
       <TopNavigation activeTab="practice" />
 
@@ -257,8 +178,8 @@ export function PracticePage() {
             className={cn(
               'flex flex-wrap justify-center bg-gradient-to-b bg-clip-text text-5xl font-black tracking-tighter text-transparent md:text-7xl',
               isDark
-                ? 'from-white via-slate-200 to-violet-400'
-                : 'from-slate-900 via-slate-700 to-violet-600',
+                ? 'from-[#10170d] via-[#26351d] to-[#8aa500]'
+                : 'from-[#10170d] via-[#26351d] to-[#8aa500]',
             )}
           >
             PRACTICE
@@ -275,7 +196,7 @@ export function PracticePage() {
           <div
             className={cn(
               'border-b p-6',
-              isDark ? 'border-violet-500/20' : 'border-violet-300 bg-violet-100/70',
+              isDark ? 'border-[#d8d0bb] bg-[#ded7c8]' : 'border-[#d8d0bb] bg-[#ded7c8]',
             )}
           >
             <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -284,7 +205,7 @@ export function PracticePage() {
                 <Search
                   className={cn(
                     'absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2',
-                    isDark ? 'text-slate-400' : 'text-violet-600',
+                    isDark ? 'text-[#5c6f1d]' : 'text-[#5c6f1d]',
                   )}
                 />
                 <input
@@ -293,10 +214,10 @@ export function PracticePage() {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className={cn(
-                    'w-full rounded-xl border py-2.5 pl-10 pr-4 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-violet-500/50',
+                    'w-full rounded-xl border py-2.5 pl-10 pr-4 text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#a5bd3c]/40',
                     isDark
-                      ? 'border-violet-500/20 bg-[#09090b]/50 text-white placeholder:text-slate-500'
-                      : 'border-violet-300 bg-violet-50/90 text-violet-950 shadow-sm shadow-violet-200/40 placeholder:text-violet-400',
+                      ? 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d] placeholder:text-[#8a836f]'
+                      : 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d] shadow-sm shadow-[#10200d]/10 placeholder:text-[#8a836f]',
                   )}
                 />
               </div>
@@ -306,7 +227,7 @@ export function PracticePage() {
                 <div className="flex w-full flex-wrap items-center gap-2 md:w-auto">
                   <div className="flex items-center gap-1.5 shrink-0">
                     <Filter
-                      className={cn('h-4 w-4', isDark ? 'text-slate-400' : 'text-violet-600')}
+                      className={cn('h-4 w-4', isDark ? 'text-[#5c6f1d]' : 'text-[#5c6f1d]')}
                     />
                     <span className="text-xs font-semibold md:hidden">Filter:</span>
                   </div>
@@ -322,8 +243,8 @@ export function PracticePage() {
                       className={cn(
                         'w-full cursor-pointer appearance-none rounded-lg border py-2 pl-3 pr-8 text-xs font-semibold transition-all focus:outline-none md:text-sm md:pl-4',
                         isDark
-                          ? 'border-violet-500/20 bg-[#161618] text-white'
-                          : 'border-violet-300 bg-violet-100 text-violet-950 shadow-sm shadow-violet-200/40',
+                          ? 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d]'
+                          : 'border-[#d8d0bb] bg-[#ece5d5] text-[#10170d] shadow-sm shadow-[#10200d]/10',
                       )}
                     >
                       <option value="All">All Difficulties</option>
@@ -345,8 +266,8 @@ export function PracticePage() {
                       className={cn(
                         'w-full cursor-pointer appearance-none rounded-lg border py-2 pl-3 pr-8 text-xs font-semibold transition-all focus:outline-none md:text-sm md:pl-4',
                         isDark
-                          ? 'border-violet-500/20 bg-[#161618] text-white'
-                          : 'border-violet-300 bg-violet-100 text-violet-950 shadow-sm shadow-violet-200/40',
+                          ? 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d]'
+                          : 'border-[#d8d0bb] bg-[#ece5d5] text-[#10170d] shadow-sm shadow-[#10200d]/10',
                       )}
                     >
                       {availableTopics.map((t) => (
@@ -369,7 +290,7 @@ export function PracticePage() {
                 <Zap
                   className={cn(
                     'mb-3 h-8 w-8 animate-pulse',
-                    isDark ? 'text-violet-500' : 'text-violet-600',
+                    isDark ? 'text-[#8aa500]' : 'text-[#5c6f1d]',
                   )}
                 />
                 <span className="font-bold tracking-wide">Loading questions...</span>
@@ -400,8 +321,8 @@ export function PracticePage() {
                         className={cn(
                           'rounded-xl border p-4 transition-all duration-300',
                           isDark
-                            ? 'border-white/5 bg-white/[0.02] hover:bg-white/[0.04]'
-                            : 'border-slate-200 bg-white hover:bg-slate-50',
+                            ? 'border-[#d8d0bb] bg-[#fffaf0] hover:bg-[#f7f1e3]'
+                            : 'border-[#d8d0bb] bg-[#fffaf0] hover:bg-[#f7f1e3]',
                         )}
                       >
                         <div className="flex items-start justify-between gap-3">
@@ -414,21 +335,21 @@ export function PracticePage() {
                                   'flex cursor-pointer items-center gap-1.5 font-bold transition-colors text-sm sm:text-base leading-snug',
                                   q.status === 'Solved'
                                     ? isDark
-                                      ? 'text-emerald-400'
-                                      : 'text-emerald-600'
+                                      ? 'text-[#5f7800]'
+                                      : 'text-[#5f7800]'
                                     : isDark
-                                      ? 'text-white hover:text-violet-400'
-                                      : 'text-slate-900 hover:text-violet-600',
+                                      ? 'text-[#10170d] hover:text-[#5c6f1d]'
+                                      : 'text-[#10170d] hover:text-[#5c6f1d]',
                                 )}
                               >
                                 {q.title}
                                 {q.status === 'Solved' && (
-                                  <Trophy className="h-3.5 w-3.5 shrink-0 text-amber-400" />
+                                  <Trophy className="h-3.5 w-3.5 shrink-0 text-[#8aa500]" />
                                 )}
                               </h3>
                               <span className="mt-1.5 flex flex-wrap gap-1 text-[9px] font-semibold opacity-60">
                                 {q.topics.map((t) => (
-                                  <span key={t} className="rounded-full bg-slate-500/10 px-1.5 py-0.5">{t}</span>
+                                  <span key={t} className="rounded-full bg-[#e8f2ad] px-1.5 py-0.5 text-[#405400]">{t}</span>
                                 ))}
                               </span>
                             </div>
@@ -455,7 +376,7 @@ export function PracticePage() {
                                 {q.status === 'Solved' ? 'Solved' : q.status === 'Attempted' ? 'Attempted' : 'New'}
                               </span>
                             </div>
-                            <span className="text-[11px] font-medium text-slate-500">
+                            <span className="text-[11px] font-medium text-[#514b3d]">
                               Acceptance: {q.acceptanceRate}%
                             </span>
                           </div>
@@ -466,9 +387,9 @@ export function PracticePage() {
                               'rounded-lg px-4 py-2 text-xs font-bold shadow-sm transition-all',
                               isAttempted
                                 ? isDark
-                                  ? 'bg-white/10 text-white hover:bg-white/20'
-                                  : 'bg-slate-200 text-slate-800 hover:bg-slate-300'
-                                : 'bg-violet-600 text-white shadow-violet-500/20 hover:bg-violet-500',
+                                  ? 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
+                                  : 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
+                                : 'bg-[#a5bd3c] text-[#10170d] shadow-[#10200d]/10 hover:bg-[#bdd45a]',
                             )}
                           >
                             {isAttempted ? 'Reattempt' : 'Solve'}
@@ -487,7 +408,7 @@ export function PracticePage() {
                     <tr
                       className={cn(
                         'text-xs uppercase tracking-wider',
-                        isDark ? 'bg-white/[0.02] text-slate-400' : 'bg-slate-50 text-slate-500',
+                        isDark ? 'bg-[#ece5d5] text-[#514b3d]' : 'bg-[#ece5d5] text-[#514b3d]',
                       )}
                     >
                       <th className="px-6 py-4 font-bold">S.No.</th>
@@ -503,7 +424,7 @@ export function PracticePage() {
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                    className={cn('text-sm', isDark ? 'text-slate-300' : 'text-slate-700')}
+                    className={cn('text-sm', isDark ? 'text-[#514b3d]' : 'text-[#514b3d]')}
                   >
                     <AnimatePresence>
                       {questions.map((q, index) => {
@@ -517,8 +438,8 @@ export function PracticePage() {
                             className={cn(
                               'group border-b transition-colors',
                               isDark
-                                ? 'border-white/5 hover:bg-white/5'
-                                : 'border-slate-100 hover:bg-slate-50',
+                                ? 'border-[#d8d0bb] hover:bg-[#f7f1e3]'
+                                : 'border-[#d8d0bb] hover:bg-[#f7f1e3]',
                             )}
                           >
                             <td className="px-6 py-4 font-medium opacity-50">{absoluteIndex}</td>
@@ -530,16 +451,16 @@ export function PracticePage() {
                                     'flex cursor-pointer items-center gap-1.5 font-bold transition-colors',
                                     q.status === 'Solved'
                                       ? isDark
-                                        ? 'text-emerald-400 group-hover:text-emerald-300'
-                                        : 'text-emerald-600 group-hover:text-emerald-500'
+                                        ? 'text-[#5f7800] group-hover:text-[#405400]'
+                                        : 'text-[#5f7800] group-hover:text-[#405400]'
                                       : isDark
-                                        ? 'text-white group-hover:text-violet-400'
-                                        : 'text-slate-900 group-hover:text-violet-600',
+                                        ? 'text-[#10170d] group-hover:text-[#5c6f1d]'
+                                        : 'text-[#10170d] group-hover:text-[#5c6f1d]',
                                   )}
                                 >
                                   {q.title}
                                   {q.status === 'Solved' && (
-                                    <Trophy className="h-3.5 w-3.5 shrink-0 text-amber-400" />
+                                    <Trophy className="h-3.5 w-3.5 shrink-0 text-[#8aa500]" />
                                   )}
                                 </span>
                                 <span className="mt-1 flex gap-2 text-[10px] font-medium opacity-60">
@@ -570,7 +491,7 @@ export function PracticePage() {
                               >
                                 {q.status === 'Solved' ? (
                                   <>
-                                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#8aa500]" />
                                     Solved
                                   </>
                                 ) : q.status === 'Attempted' ? (
@@ -590,9 +511,9 @@ export function PracticePage() {
                                   'rounded-lg px-4 py-1.5 text-xs font-bold shadow-sm transition-all',
                                   isAttempted
                                     ? isDark
-                                      ? 'bg-white/10 text-white hover:bg-white/20'
-                                      : 'bg-slate-200 text-slate-800 hover:bg-slate-300'
-                                    : 'bg-violet-600 text-white shadow-violet-500/20 hover:bg-violet-500',
+                                      ? 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
+                                      : 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
+                                    : 'bg-[#a5bd3c] text-[#10170d] shadow-[#10200d]/10 hover:bg-[#bdd45a]',
                                 )}
                               >
                                 {isAttempted ? 'Reattempt' : 'Solve'}
@@ -613,15 +534,15 @@ export function PracticePage() {
             className={cn(
               'flex flex-col items-center justify-between gap-4 border-t px-6 py-4 sm:flex-row',
               isDark
-                ? 'border-violet-500/20 bg-white/[0.01]'
-                : 'border-violet-300 bg-violet-100/80',
+                ? 'border-[#d8d0bb] bg-[#ded7c8]'
+                : 'border-[#d8d0bb] bg-[#ded7c8]',
             )}
           >
             <div className="flex items-center gap-3">
               <span
                 className={cn(
                   'text-xs font-semibold',
-                  isDark ? 'text-slate-400' : 'text-violet-700',
+                  isDark ? 'text-[#514b3d]' : 'text-[#514b3d]',
                 )}
               >
                 Rows per page:
@@ -636,8 +557,8 @@ export function PracticePage() {
                   className={cn(
                     'cursor-pointer appearance-none rounded-md border py-1.5 pl-3 pr-7 text-xs font-bold transition-all focus:outline-none',
                     isDark
-                      ? 'border-violet-500/20 bg-[#161618] text-white'
-                      : 'border-violet-300 bg-violet-50 text-violet-950',
+                      ? 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d]'
+                      : 'border-[#d8d0bb] bg-[#fffaf0] text-[#10170d]',
                   )}
                 >
                   <option value={10}>10</option>
@@ -652,7 +573,7 @@ export function PracticePage() {
               <span
                 className={cn(
                   'text-xs font-semibold',
-                  isDark ? 'text-slate-400' : 'text-violet-700',
+                  isDark ? 'text-[#514b3d]' : 'text-[#514b3d]',
                 )}
               >
                 Page {currentPage} of {totalPages || 1} ({totalItems} total)
@@ -664,8 +585,8 @@ export function PracticePage() {
                   className={cn(
                     'rounded-md p-1.5 transition',
                     isDark
-                      ? 'hover:bg-white/10 disabled:opacity-30'
-                      : 'hover:bg-slate-200 disabled:opacity-30',
+                      ? 'hover:bg-[#ece5d5] disabled:opacity-30'
+                      : 'hover:bg-[#ece5d5] disabled:opacity-30',
                   )}
                 >
                   <ChevronLeft className="h-4 w-4" />
@@ -676,8 +597,8 @@ export function PracticePage() {
                   className={cn(
                     'rounded-md p-1.5 transition',
                     isDark
-                      ? 'hover:bg-white/10 disabled:opacity-30'
-                      : 'hover:bg-slate-200 disabled:opacity-30',
+                      ? 'hover:bg-[#ece5d5] disabled:opacity-30'
+                      : 'hover:bg-[#ece5d5] disabled:opacity-30',
                   )}
                 >
                   <ChevronRight className="h-4 w-4" />
@@ -690,3 +611,6 @@ export function PracticePage() {
     </div>
   );
 }
+
+
+

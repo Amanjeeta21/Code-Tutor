@@ -143,24 +143,24 @@ export function EditorPage() {
 
   if (error || !problem) {
     return (
-      <main className="flex h-screen items-center justify-center bg-[#070a13] p-4 text-white">
-        <Card className="relative w-full max-w-md overflow-hidden border-slate-800 bg-slate-950/60 backdrop-blur-xl">
+      <main className="flex h-screen items-center justify-center bg-[#f4f0e6] p-4 text-[#10170d]">
+        <Card className="relative w-full max-w-md overflow-hidden border-[#d8d0bb] bg-[#fffaf0]/60 backdrop-blur-xl">
           <div className="absolute left-0 top-0 h-[2px] w-full bg-rose-500" />
           <CardHeader className="pt-8 text-center">
             <div className="mx-auto mb-3 flex h-12 w-12 animate-pulse items-center justify-center rounded-full border border-rose-500/20 bg-rose-500/10">
               <AlertTriangle className="h-6 w-6 text-rose-400" />
             </div>
-            <CardTitle className="text-sm font-bold uppercase tracking-wide text-slate-200">
+            <CardTitle className="text-sm font-bold uppercase tracking-wide text-[#10170d]">
               Failed to load workspace
             </CardTitle>
-            <CardDescription className="mt-1.5 text-xs text-slate-500">
+            <CardDescription className="mt-1.5 text-xs text-[#8a836f]">
               {error || 'The requested problem could not be found or fetched.'}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex justify-center pb-8">
             <Button
               asChild
-              className="h-auto rounded-lg border border-slate-800 bg-slate-900 px-5 py-2.5 text-xs font-bold text-slate-300 transition-all hover:bg-slate-800 hover:text-white"
+              className="h-auto rounded-lg border border-[#d8d0bb] bg-[#ece5d5] px-5 py-2.5 text-xs font-bold text-[#26351d] transition-all hover:bg-[#ded7c8] hover:text-[#10170d]"
             >
               <Link to="/practice">
                 <ArrowLeft className="mr-2 h-3.5 w-3.5" />
@@ -491,19 +491,19 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
   };
 
   return (
-    <main className="flex h-screen flex-col overflow-hidden bg-[#070a13] text-white antialiased">
+    <main className="flex h-screen flex-col overflow-hidden bg-[#f4f0e6] text-[#10170d] antialiased">
       <div className="fixed inset-0 bg-[radial-gradient(circle_at_30%_30%,_rgba(148,163,184,0.06),_transparent_40%),radial-gradient(circle_at_70%_70%,_rgba(147,197,253,0.06),_transparent_40%)]" />
 
       {/* Celebration overlay */}
       {showCelebration && (
         <div className="pointer-events-none fixed inset-0 z-50 flex items-center justify-center">
-          <div className="animate-in zoom-in-50 fade-in flex flex-col items-center gap-4 rounded-3xl border border-emerald-500/30 bg-slate-950/90 px-12 py-8 shadow-2xl shadow-emerald-900/40 backdrop-blur-xl duration-500">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg shadow-emerald-900/50">
-              <Trophy className="h-8 w-8 text-white" />
+          <div className="animate-in zoom-in-50 fade-in flex flex-col items-center gap-4 rounded-3xl border border-[#8aa500]/30 bg-[#fffaf0]/90 px-12 py-8 shadow-2xl shadow-[#10200d]/40 backdrop-blur-xl duration-500">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-[#a5bd3c] to-[#5f7800] shadow-lg shadow-[#10200d]/50">
+              <Trophy className="h-8 w-8 text-[#10170d]" />
             </div>
             <div className="text-center">
-              <p className="text-2xl font-black tracking-tight text-emerald-400">Accepted! 🎉</p>
-              <p className="mt-1 text-sm text-slate-400">
+              <p className="text-2xl font-black tracking-tight text-[#5f7800]">Accepted! 🎉</p>
+              <p className="mt-1 text-sm text-[#514b3d]">
                 All test cases passed. Outstanding work!
               </p>
             </div>
@@ -511,7 +511,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
               {[...Array(5)].map((_, i) => (
                 <span
                   key={i}
-                  className="h-2 w-2 animate-bounce rounded-full bg-emerald-400"
+                  className="h-2 w-2 animate-bounce rounded-full bg-[#a5bd3c]"
                   style={{ animationDelay: `${i * 120}ms` }}
                 />
               ))}
@@ -522,18 +522,18 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
 
       {/* Recommendation Popup overlay — appears after celebration ends */}
       {showRecommendationPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/60 backdrop-blur-sm">
-          <div className="animate-in zoom-in-95 fade-in w-full max-w-md rounded-2xl border border-cyan-500/20 bg-slate-950 p-6 shadow-2xl shadow-cyan-900/20 duration-300">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#fffaf0]/60 backdrop-blur-sm">
+          <div className="animate-in zoom-in-95 fade-in w-full max-w-md rounded-2xl border border-[#a5bd3c]/20 bg-[#fffaf0] p-6 shadow-2xl shadow-[#10200d]/20 duration-300">
             <div className="flex items-start justify-between">
-              <div className="flex items-center gap-3 text-slate-300">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-400 to-blue-500 shadow-lg shadow-cyan-900/40">
-                  <BrainCircuit className="h-5 w-5 text-white" />
+              <div className="flex items-center gap-3 text-[#26351d]">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-[#bdd45a] to-[#8aa500] shadow-lg shadow-[#10200d]/40">
+                  <BrainCircuit className="h-5 w-5 text-[#10170d]" />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#8a836f]">
                     AI Recommendation
                   </p>
-                  <p className="text-xs font-bold uppercase tracking-wider text-cyan-400 animate-pulse">
+                  <p className="text-xs font-bold uppercase tracking-wider text-[#5c6f1d] animate-pulse">
                     🎯 Next Problem
                   </p>
                 </div>
@@ -543,7 +543,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                   setHasDismissedRecommendation(true);
                   setShowRecommendationPopup(false);
                 }}
-                className="flex h-6 w-6 items-center justify-center rounded-lg border border-slate-700 text-slate-500 transition hover:border-slate-600 hover:text-slate-300"
+                className="flex h-6 w-6 items-center justify-center rounded-lg border border-[#c8bea5] text-[#8a836f] transition hover:border-[#b8ad93] hover:text-[#26351d]"
               >
                 ✕
               </button>
@@ -552,13 +552,13 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
             <div className="mt-6">
               {!showRecommendationUI ? (
                 <div className="text-center space-y-5">
-                  <p className="text-sm text-slate-300">
+                  <p className="text-sm text-[#26351d]">
                     Your code was accepted! Would you like an AI recommendation for your next problem based on your performance?
                   </p>
                   <div className="flex items-center justify-center gap-3">
                     <button
                       onClick={() => setShowRecommendationUI(true)}
-                      className="inline-flex items-center gap-2 rounded border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-400 transition hover:bg-emerald-500/20"
+                      className="inline-flex items-center gap-2 rounded border border-[#8aa500]/30 bg-[#8aa500]/10 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#5f7800] transition hover:bg-[#8aa500]/20"
                     >
                       <Sparkles className="h-3.5 w-3.5" />
                       Suggest next problem
@@ -568,7 +568,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                         setHasDismissedRecommendation(true);
                         setShowRecommendationPopup(false);
                       }}
-                      className="inline-flex items-center gap-2 rounded border border-slate-700 bg-slate-800/40 px-4 py-2 text-xs font-bold uppercase tracking-wider text-slate-400 transition hover:bg-slate-700/60 hover:text-slate-300"
+                      className="inline-flex items-center gap-2 rounded border border-[#c8bea5] bg-[#ded7c8]/40 px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#514b3d] transition hover:bg-[#c8bea5]/60 hover:text-[#26351d]"
                     >
                       Skip
                     </button>
@@ -577,7 +577,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
               ) : (
                 <>
                   {isLoadingRecommendations ? (
-                    <div className="flex flex-col items-center justify-center gap-3 py-6 text-cyan-400">
+                    <div className="flex flex-col items-center justify-center gap-3 py-6 text-[#5c6f1d]">
                       <Loader2 className="h-6 w-6 animate-spin" />
                       <span className="text-xs font-semibold animate-pulse">Analyzing and generating recommendation...</span>
                     </div>
@@ -586,7 +586,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                       {recommendationError}
                     </div>
                   ) : recommendations.length > 0 ? (
-                    <div className="space-y-4 text-slate-300">
+                    <div className="space-y-4 text-[#26351d]">
                       {mistakeAnalysis && mistakeAnalysis.primaryMistake !== "None" && (
                         <div className="rounded-xl border border-rose-500/20 bg-rose-500/5 p-3.5">
                           <div className="flex items-center gap-2">
@@ -596,7 +596,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                             </p>
                           </div>
                           {mistakeAnalysis.evidence?.length > 0 && (
-                            <p className="mt-1 text-[11px] font-medium leading-relaxed text-slate-400">
+                            <p className="mt-1 text-[11px] font-medium leading-relaxed text-[#514b3d]">
                               Reason: {mistakeAnalysis.evidence[0]}
                             </p>
                           )}
@@ -604,7 +604,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                       )}
 
                       <div>
-                        <p className="text-lg font-bold text-white mb-2">
+                        <p className="text-lg font-bold text-[#10170d] mb-2">
                           {recommendations[0]?.title}
                         </p>
                         <div className="flex flex-wrap items-center gap-2">
@@ -614,7 +614,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                               recommendations[0]?.difficulty === 'Easy'
                                 ? 'bg-green-500/10 text-green-400'
                                 : recommendations[0]?.difficulty === 'Medium'
-                                  ? 'bg-amber-500/10 text-amber-400'
+                                  ? 'bg-[#a5bd3c]/10 text-[#5c6f1d]'
                                   : 'bg-rose-500/10 text-rose-400',
                             )}
                           >
@@ -623,7 +623,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                           {(recommendations[0]?.topics || []).slice(0, 3).map((topic: string) => (
                             <span
                               key={topic}
-                              className="inline-flex rounded-full bg-slate-800 px-2.5 py-0.5 text-[10px] font-semibold text-slate-300"
+                              className="inline-flex rounded-full bg-[#ded7c8] px-2.5 py-0.5 text-[10px] font-semibold text-[#26351d]"
                             >
                               {topic}
                             </span>
@@ -632,10 +632,10 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                       </div>
 
                       <div>
-                        <p className="text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-1">
+                        <p className="text-[10px] font-bold uppercase tracking-wider text-[#8a836f] mb-1">
                           Explanation:
                         </p>
-                        <p className="text-sm leading-relaxed text-slate-400">
+                        <p className="text-sm leading-relaxed text-[#514b3d]">
                           {recommendationExplanation}
                         </p>
                       </div>
@@ -646,7 +646,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                             setShowRecommendationPopup(false);
                             navigate({ to: '/editor/$problemSlug', params: { problemSlug: recommendations[0]?.slug } });
                           }}
-                          className="flex-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-lg shadow-cyan-900/30 transition hover:from-cyan-400 hover:to-blue-500"
+                          className="flex-1 rounded-lg bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#10170d] shadow-lg shadow-[#10200d]/30 transition hover:from-[#bdd45a] hover:to-[#8aa500]"
                         >
                           Solve Next Problem →
                         </button>
@@ -655,14 +655,14 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
                             setHasDismissedRecommendation(true);
                             setShowRecommendationPopup(false);
                           }}
-                          className="rounded-lg border border-slate-700 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-slate-400 transition hover:border-slate-600 hover:text-slate-300"
+                          className="rounded-lg border border-[#c8bea5] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-[#514b3d] transition hover:border-[#b8ad93] hover:text-[#26351d]"
                         >
                           Close
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div className="py-4 text-center text-sm text-slate-400">
+                    <div className="py-4 text-center text-sm text-[#514b3d]">
                       No recommendations available at this time.
                     </div>
                   )}
@@ -673,29 +673,29 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
         </div>
       )}
 
-      <header className="relative z-30 flex h-auto min-h-[44px] py-1.5 shrink-0 flex-wrap items-center justify-between gap-2 border-b border-slate-800/80 bg-slate-950/20 px-3 backdrop-blur-xl sm:h-12 sm:py-0 sm:px-4">
+      <header className="relative z-30 flex h-auto min-h-[44px] py-1.5 shrink-0 flex-wrap items-center justify-between gap-2 border-b border-[#d8d0bb]/80 bg-[#fffaf0]/20 px-3 backdrop-blur-xl sm:h-12 sm:py-0 sm:px-4">
         <div className="flex items-center gap-6">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
                 <button
                   onClick={() => navigate({ to: '/practice' })}
-                  className="duration-250 inline-flex items-center gap-2 rounded-lg border border-slate-800 bg-slate-900/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-400 transition-all hover:border-slate-700 hover:text-white"
+                  className="duration-250 inline-flex items-center gap-2 rounded-lg border border-[#d8d0bb] bg-[#ece5d5]/20 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-[#514b3d] transition-all hover:border-[#c8bea5] hover:text-[#10170d]"
                 >
                   <ArrowLeft className="h-3 w-3" />
                   <span>Practice List</span>
                 </button>
               </TooltipTrigger>
-              <TooltipContent className="border-slate-800 bg-slate-950 text-[10px] text-slate-400">
+              <TooltipContent className="border-[#d8d0bb] bg-[#fffaf0] text-[10px] text-[#514b3d]">
                 Back to Practice Selection
               </TooltipContent>
             </Tooltip>
           </TooltipProvider>
 
           <div className="hidden items-center gap-2 md:flex">
-            <BrainCircuit className="h-3.5 w-3.5 text-amber-400" />
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-slate-500">
-              SKILL LENS // PRACTICE ARENA
+            <BrainCircuit className="h-3.5 w-3.5 text-[#5c6f1d]" />
+            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#8a836f]">
+              CODE TUTOR // PRACTICE ARENA
             </span>
           </div>
         </div>
@@ -703,12 +703,12 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
         <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
           {/* Submission Counter */}
           {submissionHistory.length > 0 && (
-            <div className="hidden items-center gap-1.5 rounded-lg border border-slate-700/60 bg-slate-900/40 px-2.5 py-1 md:flex">
-              <Send className="h-3 w-3 text-slate-500" />
-              <span className="font-mono text-[10px] font-bold text-slate-400">
+            <div className="hidden items-center gap-1.5 rounded-lg border border-[#c8bea5]/60 bg-[#ece5d5]/40 px-2.5 py-1 md:flex">
+              <Send className="h-3 w-3 text-[#8a836f]" />
+              <span className="font-mono text-[10px] font-bold text-[#514b3d]">
                 {submissionHistory.length}
               </span>
-              <span className="font-mono text-[9px] text-slate-600">
+              <span className="font-mono text-[9px] text-[#514b3d]">
                 {submissionHistory.length === 1 ? 'attempt' : 'attempts'}
               </span>
             </div>
@@ -716,9 +716,9 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
 
           {/* Accepted badge */}
           {submitResult?.status === 'Accepted' && (
-            <div className="flex animate-pulse items-center gap-1.5 rounded-lg border border-emerald-500/40 bg-emerald-500/10 px-2.5 py-1">
-              <Trophy className="h-3 w-3 text-emerald-400" />
-              <span className="font-mono text-[10px] font-bold text-emerald-400">Accepted</span>
+            <div className="flex animate-pulse items-center gap-1.5 rounded-lg border border-[#8aa500]/40 bg-[#8aa500]/10 px-2.5 py-1">
+              <Trophy className="h-3 w-3 text-[#5f7800]" />
+              <span className="font-mono text-[10px] font-bold text-[#5f7800]">Accepted</span>
             </div>
           )}
           {/* Mentor Toggle Button */}
@@ -730,14 +730,14 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
             }}
             className={`inline-flex items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider transition ${
               mentor.isOpen
-                ? 'border-amber-500/50 bg-amber-500/15 text-amber-400'
-                : 'border-slate-800 bg-slate-900/20 text-slate-400 hover:border-amber-500/30 hover:text-amber-400'
+                ? 'border-[#a5bd3c]/50 bg-[#a5bd3c]/15 text-[#5c6f1d]'
+                : 'border-[#d8d0bb] bg-[#ece5d5]/20 text-[#514b3d] hover:border-[#a5bd3c]/30 hover:text-[#5c6f1d]'
             }`}
           >
             <BrainCircuit className="h-3 w-3" />
             <span>Mentor AI</span>
             {mentor.messages.length > 0 && (
-              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[8px] font-black text-slate-950">
+              <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#a5bd3c] text-[8px] font-black text-[#10170d]">
                 {mentor.messages.filter((m) => m.role === 'mentor').length}
               </span>
             )}
@@ -751,14 +751,14 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
       </header>
 
       {/* Mobile Workspace Tabs Selector */}
-      <div className="relative z-20 flex border-b border-slate-800 bg-[#0c101f] md:hidden shrink-0">
+      <div className="relative z-20 flex border-b border-[#d8d0bb] bg-[#ece5d5] md:hidden shrink-0">
         <button
           onClick={() => handleWorkspaceTabChange('description')}
           className={cn(
             'flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider transition-all border-b-2 outline-none',
             activeWorkspaceTab === 'description'
-              ? 'border-amber-500 text-amber-400 bg-amber-500/5'
-              : 'border-transparent text-slate-400 hover:text-slate-200',
+              ? 'border-[#a5bd3c] text-[#5c6f1d] bg-[#a5bd3c]/5'
+              : 'border-transparent text-[#514b3d] hover:text-[#10170d]',
           )}
         >
           Description
@@ -768,8 +768,8 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
           className={cn(
             'flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider transition-all border-b-2 outline-none',
             activeWorkspaceTab === 'editor'
-              ? 'border-amber-500 text-amber-400 bg-amber-500/5'
-              : 'border-transparent text-slate-400 hover:text-slate-200',
+              ? 'border-[#a5bd3c] text-[#5c6f1d] bg-[#a5bd3c]/5'
+              : 'border-transparent text-[#514b3d] hover:text-[#10170d]',
           )}
         >
           Workspace
@@ -779,13 +779,13 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
           className={cn(
             'flex-1 py-3 text-center text-xs font-bold uppercase tracking-wider transition-all border-b-2 outline-none relative',
             activeWorkspaceTab === 'mentor'
-              ? 'border-amber-500 text-amber-400 bg-amber-500/5'
-              : 'border-transparent text-slate-400 hover:text-slate-200',
+              ? 'border-[#a5bd3c] text-[#5c6f1d] bg-[#a5bd3c]/5'
+              : 'border-transparent text-[#514b3d] hover:text-[#10170d]',
           )}
         >
           AI Coach
           {mentor.messages.length > 0 && (
-            <span className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-amber-500 text-[8px] font-black text-slate-950">
+            <span className="ml-1.5 inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#a5bd3c] text-[8px] font-black text-[#10170d]">
               {mentor.messages.filter((m) => m.role === 'mentor').length}
             </span>
           )}
@@ -818,7 +818,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
           onClick={() => setLeftCollapsed((prev) => !prev)}
           title="Drag to resize problem panel. Click to collapse or expand."
           className={cn(
-            "mx-1 w-2 items-center justify-center rounded bg-slate-900/80 text-slate-600 transition hover:bg-slate-800 hover:text-amber-400",
+            "mx-1 w-2 items-center justify-center rounded bg-[#ece5d5]/80 text-[#514b3d] transition hover:bg-[#ded7c8] hover:text-[#5c6f1d]",
             isMobile ? "hidden" : "flex cursor-col-resize"
           )}
         >
@@ -850,7 +850,7 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
             onClick={() => setBottomCollapsed((prev) => !prev)}
             title="Drag to resize terminal. Click to collapse or expand."
             className={cn(
-              "my-1 h-2 items-center justify-center rounded bg-slate-900/80 text-slate-600 transition hover:bg-slate-800 hover:text-amber-400",
+              "my-1 h-2 items-center justify-center rounded bg-[#ece5d5]/80 text-[#514b3d] transition hover:bg-[#ded7c8] hover:text-[#5c6f1d]",
               isMobile ? "hidden" : "flex cursor-row-resize"
             )}
           >
@@ -858,16 +858,16 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
           </button>
 
           <div
-            className="flex shrink-0 flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-950/20 backdrop-blur-xl transition-[height] duration-150"
+            className="flex shrink-0 flex-col overflow-hidden rounded-xl border border-[#d8d0bb] bg-[#fffaf0]/20 backdrop-blur-xl transition-[height] duration-150"
             style={{ height: bottomCollapsed ? 42 : (isMobile ? 180 : bottomHeight) }}
           >
             <div className="flex-1 overflow-hidden">
               {bottomCollapsed ? (
-                <div className="flex h-full items-center justify-between px-4 text-xs text-slate-500">
+                <div className="flex h-full items-center justify-between px-4 text-xs text-[#8a836f]">
                   <span>Terminal collapsed</span>
                   <button
                     onClick={() => setBottomCollapsed(false)}
-                    className="text-amber-400 hover:text-amber-300"
+                    className="text-[#5c6f1d] hover:text-[#405400]"
                   >
                     Expand
                   </button>
@@ -968,15 +968,15 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
 
         {/* AI Fallback panel (Mobile) */}
         {isMobile && activeWorkspaceTab === 'mentor' && !mentor.isOpen && !showEvaluation && (
-          <div className="flex flex-col items-center justify-center p-6 text-center text-slate-400 bg-slate-950/20 rounded-xl border border-slate-800/80 h-full w-full">
-            <BrainCircuit className="h-10 w-10 text-amber-500 mb-3 animate-pulse" />
-            <p className="text-sm font-bold text-white mb-2">AI Copilot Options</p>
-            <p className="text-xs text-slate-400 max-w-xs mb-4">
+          <div className="flex flex-col items-center justify-center p-6 text-center text-[#514b3d] bg-[#fffaf0]/20 rounded-xl border border-[#d8d0bb]/80 h-full w-full">
+            <BrainCircuit className="h-10 w-10 text-[#8aa500] mb-3 animate-pulse" />
+            <p className="text-sm font-bold text-[#10170d] mb-2">AI Copilot Options</p>
+            <p className="text-xs text-[#514b3d] max-w-xs mb-4">
               Get real-time hints, code reviews, and solution explanations from the AI agents.
             </p>
             <button
               onClick={() => mentor.toggleOpen()}
-              className="w-full rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-400 py-2.5 text-xs font-bold uppercase tracking-wider transition hover:bg-amber-500/20"
+              className="w-full rounded-lg bg-[#a5bd3c]/10 border border-[#a5bd3c]/30 text-[#5c6f1d] py-2.5 text-xs font-bold uppercase tracking-wider transition hover:bg-[#a5bd3c]/20"
             >
               Activate AI Mentor
             </button>
@@ -994,3 +994,4 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
     </main>
   );
 }
+

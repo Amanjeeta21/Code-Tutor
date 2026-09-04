@@ -124,8 +124,8 @@ export function LeftPanel({
   const progressiveHints = useMemo(() => buildProgressiveHints(problem), [problem]);
 
   return (
-    <div className="flex h-full flex-col overflow-hidden border border-slate-800 bg-slate-950/20 backdrop-blur-xl">
-      <div className="flex h-11 shrink-0 border-b border-slate-800/70 bg-slate-950/40">
+    <div className="flex h-full flex-col overflow-hidden border border-[#d8d0bb] bg-[#fffaf0]/20 backdrop-blur-xl">
+      <div className="flex h-11 shrink-0 border-b border-[#d8d0bb]/70 bg-[#fffaf0]/40">
         {(['description', 'hints', 'submissions'] as LeftTab[]).map((tab) => {
           const isSubmissions = tab === 'submissions';
           return (
@@ -135,8 +135,8 @@ export function LeftPanel({
               className={cn(
                 'flex flex-1 items-center justify-center gap-1.5 border-b-2 px-2 text-xs font-bold capitalize transition',
                 activeTab === tab
-                  ? 'border-amber-500 text-amber-400'
-                  : 'border-transparent text-slate-500 hover:text-slate-200',
+                  ? 'border-[#a5bd3c] text-[#5c6f1d]'
+                  : 'border-transparent text-[#8a836f] hover:text-[#10170d]',
               )}
             >
               <span>{tab}</span>
@@ -145,8 +145,8 @@ export function LeftPanel({
                   className={cn(
                     'rounded-full px-1.5 py-0.5 font-mono text-[9px] font-bold leading-none transition-colors duration-150',
                     activeTab === tab
-                      ? 'bg-amber-500/20 text-amber-400'
-                      : 'bg-slate-800/60 text-slate-500',
+                      ? 'bg-[#a5bd3c]/20 text-[#5c6f1d]'
+                      : 'bg-[#ded7c8]/60 text-[#8a836f]',
                   )}
                 >
                   {totalSubmissions}
@@ -164,7 +164,7 @@ export function LeftPanel({
         {activeTab === 'hints' && (
           <div className="space-y-3">
             <div className="mb-1 flex items-center justify-between">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#8a836f]">
                 {unlockedHints < progressiveHints.length
                   ? `${unlockedHints} of ${progressiveHints.length} hints revealed`
                   : 'All hints revealed'}
@@ -174,7 +174,7 @@ export function LeftPanel({
                   <span
                     key={i}
                     className={`h-1.5 w-1.5 rounded-full transition-colors ${
-                      i < unlockedHints ? 'bg-amber-400' : 'bg-slate-700'
+                      i < unlockedHints ? 'bg-[#bdd45a]' : 'bg-[#c8bea5]'
                     }`}
                   />
                 ))}
@@ -188,32 +188,32 @@ export function LeftPanel({
                   key={index}
                   className={`rounded-lg border p-3 transition-all ${
                     isUnlocked
-                      ? 'border-amber-500/20 bg-slate-900/30'
-                      : 'border-slate-800/40 bg-slate-900/10 opacity-60'
+                      ? 'border-[#a5bd3c]/20 bg-[#ece5d5]/30'
+                      : 'border-[#d8d0bb]/40 bg-[#ece5d5]/10 opacity-60'
                   }`}
                 >
                   <div className="mb-2 flex items-center justify-between gap-2">
-                    <p className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase text-amber-400">
+                    <p className="flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase text-[#5c6f1d]">
                       {isUnlocked ? (
                         <Unlock className="h-3 w-3" />
                       ) : (
-                        <Lock className="h-3 w-3 text-slate-600" />
+                        <Lock className="h-3 w-3 text-[#514b3d]" />
                       )}
-                      <span className={isUnlocked ? 'text-amber-400' : 'text-slate-600'}>
+                      <span className={isUnlocked ? 'text-[#5c6f1d]' : 'text-[#514b3d]'}>
                         {hint.label}
                       </span>
                     </p>
                     {isUnlocked && (
-                      <span className="rounded border border-slate-700/60 bg-slate-800/60 px-1.5 py-0.5 font-mono text-[9px] text-slate-500">
+                      <span className="rounded border border-[#c8bea5]/60 bg-[#ded7c8]/60 px-1.5 py-0.5 font-mono text-[9px] text-[#8a836f]">
                         {hint.description}
                       </span>
                     )}
                   </div>
 
                   {isUnlocked ? (
-                    <p className="text-sm leading-6 text-slate-300">{hint.content}</p>
+                    <p className="text-sm leading-6 text-[#26351d]">{hint.content}</p>
                   ) : (
-                    <p className="text-xs text-slate-600">
+                    <p className="text-xs text-[#514b3d]">
                       🔒 Complete reading the previous hint first.
                     </p>
                   )}
@@ -224,7 +224,7 @@ export function LeftPanel({
             {unlockedHints < progressiveHints.length && (
               <button
                 onClick={() => setUnlockedHints((n) => Math.min(n + 1, progressiveHints.length))}
-                className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg border border-amber-500/30 bg-amber-500/5 py-2 text-xs font-bold text-amber-400 transition hover:border-amber-500/50 hover:bg-amber-500/10"
+                className="mt-1 flex w-full items-center justify-center gap-2 rounded-lg border border-[#a5bd3c]/30 bg-[#a5bd3c]/5 py-2 text-xs font-bold text-[#5c6f1d] transition hover:border-[#a5bd3c]/50 hover:bg-[#a5bd3c]/10"
               >
                 <Lightbulb className="h-3.5 w-3.5" />
                 Reveal Next Hint
@@ -233,7 +233,7 @@ export function LeftPanel({
             )}
 
             {unlockedHints === progressiveHints.length && (
-              <div className="flex items-center justify-center gap-2 rounded-lg border border-emerald-500/20 bg-emerald-500/5 py-2 text-xs font-semibold text-emerald-400">
+              <div className="flex items-center justify-center gap-2 rounded-lg border border-[#8aa500]/20 bg-[#8aa500]/5 py-2 text-xs font-semibold text-[#5f7800]">
                 <Trophy className="h-3.5 w-3.5" />
                 All hints revealed — trust your understanding!
               </div>
@@ -266,8 +266,8 @@ function DescriptionTab({
     <div className="space-y-5">
       <div>
         <div className="mb-3 flex items-center gap-2">
-          <BookOpen className="h-4 w-4 text-cyan-300" />
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          <BookOpen className="h-4 w-4 text-[#5c6f1d]" />
+          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#8a836f]">
             Problem
           </span>
           <StatusBadge
@@ -282,8 +282,8 @@ function DescriptionTab({
             {problem.difficulty}
           </StatusBadge>
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-100">{problem.title}</h1>
-        <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-slate-400">
+        <h1 className="text-2xl font-semibold tracking-tight text-[#10170d]">{problem.title}</h1>
+        <div className="mt-3 grid grid-cols-2 gap-2 text-xs text-[#514b3d]">
           <span>Acceptance {displayAcceptance.toFixed(1)}%</span>
           <span className="inline-flex items-center gap-1">
             <Clock className="h-3 w-3" />
@@ -297,19 +297,19 @@ function DescriptionTab({
       </div>
 
       <SectionCard title="Statement">
-        <p className="whitespace-pre-line text-sm leading-relaxed text-slate-300">
+        <p className="whitespace-pre-line text-sm leading-relaxed text-[#26351d]">
           {problem.description}
         </p>
       </SectionCard>
 
       <SectionCard title="Input Format">
-        <p className="text-xs leading-relaxed text-slate-300">
+        <p className="text-xs leading-relaxed text-[#26351d]">
           Inputs follow the function signature and sample test case structure for this problem.
         </p>
       </SectionCard>
 
       <SectionCard title="Output Format">
-        <p className="text-xs leading-relaxed text-slate-300">
+        <p className="text-xs leading-relaxed text-[#26351d]">
           Return or print the value that matches each expected output.
         </p>
       </SectionCard>
@@ -319,21 +319,21 @@ function DescriptionTab({
           {problem.examples.map((example) => (
             <div
               key={example.id}
-              className="rounded-lg border border-white/[0.04] bg-slate-900/30 p-3"
+              className="rounded-lg border border-[#d8d0bb] bg-[#ece5d5]/30 p-3"
             >
-              <p className="font-mono text-[10px] font-bold uppercase text-slate-500">
+              <p className="font-mono text-[10px] font-bold uppercase text-[#8a836f]">
                 Example {example.id}
               </p>
-              <div className="mt-2 space-y-2 font-mono text-xs text-slate-300">
-                <pre className="whitespace-pre-wrap rounded bg-slate-950/60 p-2">
-                  <span className="text-blue-300">Input:</span> {example.input}
+              <div className="mt-2 space-y-2 font-mono text-xs text-[#26351d]">
+                <pre className="whitespace-pre-wrap rounded bg-[#fffaf0]/60 p-2">
+                  <span className="text-[#5c6f1d]">Input:</span> {example.input}
                 </pre>
-                <pre className="whitespace-pre-wrap rounded bg-slate-950/60 p-2">
-                  <span className="text-emerald-300">Output:</span> {example.output}
+                <pre className="whitespace-pre-wrap rounded bg-[#fffaf0]/60 p-2">
+                  <span className="text-[#405400]">Output:</span> {example.output}
                 </pre>
               </div>
               {example.explanation && (
-                <p className="mt-2 border-t border-white/[0.04] pt-2 text-xs text-slate-400">
+                <p className="mt-2 border-t border-[#d8d0bb] pt-2 text-xs text-[#514b3d]">
                   {example.explanation}
                 </p>
               )}
@@ -343,7 +343,7 @@ function DescriptionTab({
       </SectionCard>
 
       <SectionCard title="Constraints">
-        <ul className="list-inside list-disc space-y-2 text-xs text-slate-300">
+        <ul className="list-inside list-disc space-y-2 text-xs text-[#26351d]">
           {problem.constraints.map((constraint) => (
             <li key={constraint}>{constraint}</li>
           ))}
@@ -355,7 +355,7 @@ function DescriptionTab({
           {problem.topics.map((topic) => (
             <span
               key={topic}
-              className="inline-flex items-center gap-1 rounded border border-slate-700 bg-slate-900 px-2 py-1 text-xs text-slate-300"
+              className="inline-flex items-center gap-1 rounded border border-[#c8bea5] bg-[#ece5d5] px-2 py-1 text-xs text-[#26351d]"
             >
               <Tags className="h-3 w-3" />
               {topic}
@@ -365,7 +365,7 @@ function DescriptionTab({
       </SectionCard>
 
       <SectionCard title="Starter Code">
-        <pre className="max-h-64 overflow-auto rounded-lg bg-slate-950/80 p-3 font-mono text-xs leading-5 text-slate-300">
+        <pre className="max-h-64 overflow-auto rounded-lg bg-[#fffaf0]/80 p-3 font-mono text-xs leading-5 text-[#26351d]">
           {problem.templates.javascript ||
             problem.templates.python ||
             'Starter code is not available for this problem.'}
@@ -388,36 +388,36 @@ function SubmissionItem({
   const complexity = estimateComplexity(submission.code);
 
   return (
-    <div className="rounded-lg border border-white/[0.04] bg-slate-900/30 p-3">
+    <div className="rounded-lg border border-[#d8d0bb] bg-[#ece5d5]/30 p-3">
       <div className="flex items-start justify-between gap-3">
         <div>
           <p
             className={cn(
               'text-sm font-bold',
               submission.status === 'Accepted'
-                ? 'text-emerald-400'
+                ? 'text-[#5f7800]'
                 : submission.status === 'Wrong Answer'
-                  ? 'text-amber-400'
-                  : 'text-rose-400',
+                  ? 'text-[#5c6f1d]'
+                  : 'text-[#7b2116]',
             )}
           >
             {submission.status}
           </p>
-          <p className="mt-1 text-[10px] text-slate-500">
+          <p className="mt-1 text-[10px] text-[#8a836f]">
             {new Date(submission.submittedAt).toLocaleString()} - {submission.language}
           </p>
         </div>
         <div className="flex gap-2">
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="rounded border border-slate-700 px-2 py-1 text-[10px] font-bold text-slate-300 hover:border-slate-500"
+            className="rounded border border-[#c8bea5] px-2 py-1 text-[10px] font-bold text-[#26351d] hover:border-[#8a836f]"
           >
             {isExpanded ? 'Collapse' : 'Details'}
           </button>
           {loadSubmittedCode && (
             <button
               onClick={() => loadSubmittedCode(submission.code)}
-              className="rounded border border-slate-700 px-2 py-1 text-[10px] font-bold text-slate-300 hover:border-amber-500 hover:text-amber-400"
+              className="rounded border border-[#c8bea5] px-2 py-1 text-[10px] font-bold text-[#26351d] hover:border-[#a5bd3c] hover:text-[#5c6f1d]"
             >
               Load
             </button>
@@ -427,10 +427,10 @@ function SubmissionItem({
 
       {isExpanded && (
         <div className="mt-4 space-y-4">
-          <pre className="max-h-40 overflow-auto rounded bg-slate-950/70 p-3 font-mono text-[11px] text-slate-400">
+          <pre className="max-h-40 overflow-auto rounded bg-[#fffaf0]/70 p-3 font-mono text-[11px] text-[#514b3d]">
             {submission.code}
           </pre>
-          <div className="mt-3 grid gap-2 text-xs text-slate-400 sm:grid-cols-2">
+          <div className="mt-3 grid gap-2 text-xs text-[#514b3d] sm:grid-cols-2">
             <span>
               Tests: {submission.passedCount ?? 0}/{submission.totalCount ?? '?'}
             </span>
@@ -440,14 +440,14 @@ function SubmissionItem({
             <span>Space: {complexity.space}</span>
           </div>
           {(submission.stderr || submission.stdout) && (
-            <pre className="mt-3 max-h-28 overflow-auto whitespace-pre-wrap rounded bg-slate-950/70 p-2 font-mono text-[11px] text-slate-300">
+            <pre className="mt-3 max-h-28 overflow-auto whitespace-pre-wrap rounded bg-[#fffaf0]/70 p-2 font-mono text-[11px] text-[#26351d]">
               {submission.stderr || submission.stdout}
             </pre>
           )}
-          <p className="rounded border border-amber-500/20 bg-amber-500/5 p-2 text-xs leading-5 text-slate-300">
+          <p className="rounded border border-[#a5bd3c]/20 bg-[#a5bd3c]/5 p-2 text-xs leading-5 text-[#26351d]">
             {mentorFeedbackFor(submission)}
           </p>
-          <div className="border-t border-slate-800 pt-3">
+          <div className="border-t border-[#d8d0bb] pt-3">
             <ResultsPanel
               type="submit"
               result={submission}
@@ -476,7 +476,7 @@ function SubmissionsTab({
 }) {
   if (submissions.length === 0) {
     return (
-      <div className="flex h-full flex-col items-center justify-center text-center text-sm text-slate-500">
+      <div className="flex h-full flex-col items-center justify-center text-center text-sm text-[#8a836f]">
         <History className="mb-3 h-8 w-8 opacity-50" />
         Submit code to see verdicts, performance, errors, complexity, and mentor feedback here.
       </div>
@@ -485,12 +485,12 @@ function SubmissionsTab({
   return (
     <div className="space-y-4">
       {typeof totalSubmissions === 'number' && totalSubmissions > 0 && (
-        <div className="flex items-center justify-between rounded-xl border border-slate-800/80 bg-slate-900/10 px-3.5 py-2.5">
+        <div className="flex items-center justify-between rounded-xl border border-[#d8d0bb]/80 bg-[#ece5d5]/10 px-3.5 py-2.5">
           <div className="flex items-center gap-2">
-            <History className="h-4 w-4 text-slate-500" />
-            <span className="text-xs font-bold text-slate-400">Total Attempts</span>
+            <History className="h-4 w-4 text-[#8a836f]" />
+            <span className="text-xs font-bold text-[#514b3d]">Total Attempts</span>
           </div>
-          <span className="font-mono text-sm font-black text-slate-200">{totalSubmissions}</span>
+          <span className="font-mono text-sm font-black text-[#10170d]">{totalSubmissions}</span>
         </div>
       )}
 
@@ -507,3 +507,5 @@ function SubmissionsTab({
     </div>
   );
 }
+
+

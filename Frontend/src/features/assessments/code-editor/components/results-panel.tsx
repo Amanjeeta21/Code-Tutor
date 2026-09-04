@@ -167,8 +167,8 @@ export function ResultsPanel({
     return (
       <div className="flex h-full items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-slate-600 border-t-amber-500"></div>
-          <p className="text-sm text-slate-400">
+          <div className="mx-auto mb-3 h-10 w-10 animate-spin rounded-full border-4 border-[#b8ad93] border-t-amber-500"></div>
+          <p className="text-sm text-[#514b3d]">
             {type === 'run' ? 'Running...' : 'Submitting...'}
           </p>
         </div>
@@ -179,7 +179,7 @@ export function ResultsPanel({
   if (!result) return null;
 
   const status = getStatus(result, type);
-  const statusColor = statusColors[status] || 'text-slate-400 bg-slate-500/10';
+  const statusColor = statusColors[status] || 'text-[#514b3d] bg-[#8a836f]/10';
   const StatusIcon = statusIcons[status] || AlertCircle;
   const runtime = getRuntime(result);
   const memory = getMemory(result);
@@ -213,15 +213,15 @@ export function ResultsPanel({
   ].filter((item) => item.value > 0);
 
   return (
-    <div className="flex h-full flex-col overflow-hidden bg-slate-950/40">
+    <div className="flex h-full flex-col overflow-hidden bg-[#fffaf0]/40">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-slate-800/40 px-4 py-3">
+      <div className="flex items-center justify-between border-b border-[#d8d0bb]/40 px-4 py-3">
         <div className="flex items-center gap-2">
           <StatusIcon className={`h-4 w-4 ${statusColor.split(' ')[0]}`} />
           <span className={`text-sm font-semibold ${statusColor.split(' ')[0]}`}>{status}</span>
         </div>
         {onClose && (
-          <button onClick={onClose} className="rounded p-1 hover:bg-slate-800/30">
+          <button onClick={onClose} className="rounded p-1 hover:bg-[#ded7c8]/30">
             <X className="h-4 w-4" />
           </button>
         )}
@@ -229,11 +229,11 @@ export function ResultsPanel({
 
       {/* Results Content */}
       <div className="min-h-0 flex-1 space-y-4 overflow-y-auto p-4">
-        <section className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-          <div className="mb-2 text-xs font-semibold uppercase text-slate-500">
+        <section className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+          <div className="mb-2 text-xs font-semibold uppercase text-[#8a836f]">
             {type === 'run' ? 'Run Code Report' : 'Submission Result'}
           </div>
-          <div className="space-y-1.5 text-sm text-slate-300">
+          <div className="space-y-1.5 text-sm text-[#26351d]">
             <p>
               <span className={compilationLabel === 'Success' ? 'text-green-400' : 'text-red-400'}>
                 {compilationLabel === 'Success' ? 'Compilation: Success' : 'Compilation Failed'}
@@ -243,45 +243,45 @@ export function ResultsPanel({
               Status: <span className={statusColor.split(' ')[0]}>{status}</span>
             </p>
             <p>
-              Test Cases: <span className="font-semibold text-slate-100">{passedLabel}</span>
+              Test Cases: <span className="font-semibold text-[#10170d]">{passedLabel}</span>
             </p>
           </div>
         </section>
 
         <div className="grid grid-cols-2 gap-3">
-          <div className="rounded border border-slate-700/30 bg-slate-900/20 px-3 py-2">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 px-3 py-2">
+            <div className="flex items-center gap-1.5 text-xs text-[#8a836f]">
               <Clock className="h-3.5 w-3.5" />
               Runtime
             </div>
-            <p className="mt-1 text-sm font-semibold text-slate-200">{runtime}ms</p>
+            <p className="mt-1 text-sm font-semibold text-[#10170d]">{runtime}ms</p>
           </div>
-          <div className="rounded border border-slate-700/30 bg-slate-900/20 px-3 py-2">
-            <div className="flex items-center gap-1.5 text-xs text-slate-500">
+          <div className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 px-3 py-2">
+            <div className="flex items-center gap-1.5 text-xs text-[#8a836f]">
               <HardDrive className="h-3.5 w-3.5" />
               Memory
             </div>
-            <p className="mt-1 text-sm font-semibold text-slate-200">{memory}MB</p>
+            <p className="mt-1 text-sm font-semibold text-[#10170d]">{memory}MB</p>
           </div>
         </div>
 
         {type === 'run' && examples.length > 0 && (
-          <section className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-            <div className="mb-2 text-xs font-semibold uppercase text-slate-500">
+          <section className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+            <div className="mb-2 text-xs font-semibold uppercase text-[#8a836f]">
               Sample Test Cases
             </div>
             <div className="space-y-2">
               {examples.slice(0, 2).map((example) => (
                 <div
                   key={example.id}
-                  className="rounded border border-slate-800/60 bg-slate-950/30 p-2 text-xs"
+                  className="rounded border border-[#d8d0bb]/60 bg-[#fffaf0]/30 p-2 text-xs"
                 >
-                  <p className="text-slate-500">Input</p>
-                  <pre className="whitespace-pre-wrap break-words font-mono text-slate-300">
+                  <p className="text-[#8a836f]">Input</p>
+                  <pre className="whitespace-pre-wrap break-words font-mono text-[#26351d]">
                     {example.input}
                   </pre>
-                  <p className="mt-1 text-slate-500">Expected Output</p>
-                  <pre className="whitespace-pre-wrap break-words font-mono text-slate-300">
+                  <p className="mt-1 text-[#8a836f]">Expected Output</p>
+                  <pre className="whitespace-pre-wrap break-words font-mono text-[#26351d]">
                     {example.output}
                   </pre>
                   <p
@@ -298,26 +298,26 @@ export function ResultsPanel({
         )}
 
         {type === 'submit' && (
-          <section className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-            <div className="mb-2 text-xs font-semibold uppercase text-slate-500">
+          <section className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+            <div className="mb-2 text-xs font-semibold uppercase text-[#8a836f]">
               Performance Analysis
             </div>
-            <div className="grid gap-2 text-sm text-slate-300 sm:grid-cols-2">
+            <div className="grid gap-2 text-sm text-[#26351d] sm:grid-cols-2">
               <p>
                 Time Complexity:{' '}
-                <span className="font-semibold text-slate-100">{complexity.time}</span>
+                <span className="font-semibold text-[#10170d]">{complexity.time}</span>
               </p>
               <p>
                 Space Complexity:{' '}
-                <span className="font-semibold text-slate-100">{complexity.space}</span>
+                <span className="font-semibold text-[#10170d]">{complexity.space}</span>
               </p>
               <p>
                 Algorithm Used:{' '}
-                <span className="font-semibold text-slate-100">{complexity.algorithm}</span>
+                <span className="font-semibold text-[#10170d]">{complexity.algorithm}</span>
               </p>
               <p>
                 Code Quality:{' '}
-                <span className="font-semibold text-amber-400">{qualityScore}/100</span>
+                <span className="font-semibold text-[#5c6f1d]">{qualityScore}/100</span>
               </p>
             </div>
           </section>
@@ -326,8 +326,8 @@ export function ResultsPanel({
         {type === 'submit' && (
           <section className="space-y-3">
             <div className="grid gap-3 lg:grid-cols-2">
-              <div className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-slate-500">
+              <div className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-[#8a836f]">
                   <BarChart3 className="h-3.5 w-3.5" />
                   Runtime / Memory
                 </div>
@@ -343,8 +343,8 @@ export function ResultsPanel({
                 </ChartContainer>
               </div>
 
-              <div className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-slate-500">
+              <div className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+                <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-[#8a836f]">
                   <PieChartIcon className="h-3.5 w-3.5" />
                   Passed / Failed
                 </div>
@@ -366,15 +366,15 @@ export function ResultsPanel({
                     </PieChart>
                   </ChartContainer>
                 ) : (
-                  <div className="flex h-36 items-center justify-center text-xs text-slate-500">
+                  <div className="flex h-36 items-center justify-center text-xs text-[#8a836f]">
                     No test count available
                   </div>
                 )}
               </div>
             </div>
 
-            <div className="rounded border border-slate-700/30 bg-slate-900/20 p-3">
-              <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-slate-500">
+            <div className="rounded border border-[#c8bea5]/30 bg-[#ece5d5]/20 p-3">
+              <div className="mb-2 flex items-center gap-1.5 text-xs font-semibold uppercase text-[#8a836f]">
                 <LineChartIcon className="h-3.5 w-3.5" />
                 Submission Runtime Trend
               </div>
@@ -395,7 +395,7 @@ export function ResultsPanel({
                   </LineChart>
                 </ChartContainer>
               ) : (
-                <div className="flex h-32 items-center justify-center text-xs text-slate-500">
+                <div className="flex h-32 items-center justify-center text-xs text-[#8a836f]">
                   Submit more attempts to see a trend
                 </div>
               )}
@@ -423,8 +423,8 @@ export function ResultsPanel({
 
         {((result as ExecutionResult).stdout || (result as Submission).stdout) && (
           <div>
-            <div className="mb-2 text-xs font-semibold uppercase text-slate-500">Output</div>
-            <pre className="max-h-32 overflow-auto whitespace-pre-wrap break-words rounded border border-slate-700/30 bg-slate-900/40 p-3 font-mono text-xs text-slate-300">
+            <div className="mb-2 text-xs font-semibold uppercase text-[#8a836f]">Output</div>
+            <pre className="max-h-32 overflow-auto whitespace-pre-wrap break-words rounded border border-[#c8bea5]/30 bg-[#ece5d5]/40 p-3 font-mono text-xs text-[#26351d]">
               {isRunResult
                 ? (result as ExecutionResult).stdout
                 : (result as Submission).stdout || 'No output'}
@@ -441,9 +441,9 @@ export function ResultsPanel({
           </div>
         )}
 
-        <section className="rounded border border-amber-500/20 bg-amber-500/5 p-3">
-          <div className="mb-2 text-xs font-semibold uppercase text-amber-400">Mentor Hint</div>
-          <ul className="space-y-1.5 text-sm text-slate-300">
+        <section className="rounded border border-[#a5bd3c]/20 bg-[#a5bd3c]/5 p-3">
+          <div className="mb-2 text-xs font-semibold uppercase text-[#5c6f1d]">Mentor Hint</div>
+          <ul className="space-y-1.5 text-sm text-[#26351d]">
             {hints.map((hint) => (
               <li key={hint}>- {hint}</li>
             ))}
@@ -452,8 +452,8 @@ export function ResultsPanel({
       </div>
 
       {/* Footer with Action */}
-      <div className="border-t border-slate-800/40 bg-slate-950/20 px-4 py-2">
-        <p className="text-center text-xs text-slate-500">
+      <div className="border-t border-[#d8d0bb]/40 bg-[#fffaf0]/20 px-4 py-2">
+        <p className="text-center text-xs text-[#8a836f]">
           {type === 'run'
             ? 'Use this to debug. Submit only after checking edge cases.'
             : 'Submitted. Review the analysis before your next attempt.'}
@@ -462,3 +462,4 @@ export function ResultsPanel({
     </div>
   );
 }
+

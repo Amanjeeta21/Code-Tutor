@@ -10,11 +10,11 @@ interface ProblemPanelProps {
 
 export function ProblemPanel({ problem }: ProblemPanelProps) {
   return (
-    <div className="custom-scrollbar h-full space-y-5 overflow-y-auto border border-slate-800 bg-slate-950/20 p-5 backdrop-blur-xl">
+    <div className="custom-scrollbar h-full space-y-5 overflow-y-auto border border-[#d8d0bb] bg-[#fffaf0]/20 p-5 backdrop-blur-xl">
       <div>
         <div className="mb-3 flex items-center gap-2">
-          <BookOpen className="h-4 w-4 text-cyan-300" />
-          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500">
+          <BookOpen className="h-4 w-4 text-[#5c6f1d]" />
+          <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#8a836f]">
             Problem
           </span>
           <StatusBadge
@@ -29,14 +29,14 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
             {problem.difficulty}
           </StatusBadge>
         </div>
-        <h1 className="text-2xl font-semibold tracking-tight text-slate-100">{problem.title}</h1>
-        <p className="mt-2 text-xs text-slate-500">
+        <h1 className="text-2xl font-semibold tracking-tight text-[#10170d]">{problem.title}</h1>
+        <p className="mt-2 text-xs text-[#8a836f]">
           Acceptance {problem.acceptance.toFixed(1)}% | {problem.timeLimitMs || 0} ms |{' '}
           {problem.memoryLimitMb || 0} MB
         </p>
       </div>
 
-      <p className="whitespace-pre-line text-sm leading-relaxed text-slate-300">
+      <p className="whitespace-pre-line text-sm leading-relaxed text-[#26351d]">
         {problem.description}
       </p>
 
@@ -45,21 +45,21 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
           {problem.examples.map((example) => (
             <div
               key={example.id}
-              className="rounded-lg border border-white/[0.04] bg-slate-900/30 p-3"
+              className="rounded-lg border border-[#d8d0bb] bg-[#ece5d5]/30 p-3"
             >
-              <p className="font-mono text-[10px] font-bold uppercase text-slate-500">
+              <p className="font-mono text-[10px] font-bold uppercase text-[#8a836f]">
                 Example {example.id}
               </p>
-              <div className="mt-2 space-y-1 font-mono text-xs text-slate-300">
+              <div className="mt-2 space-y-1 font-mono text-xs text-[#26351d]">
                 <p>
-                  <span className="text-blue-300">Input:</span> {example.input}
+                  <span className="text-[#5c6f1d]">Input:</span> {example.input}
                 </p>
                 <p>
-                  <span className="text-emerald-300">Output:</span> {example.output}
+                  <span className="text-[#405400]">Output:</span> {example.output}
                 </p>
               </div>
               {example.explanation && (
-                <p className="mt-2 border-t border-white/[0.04] pt-2 text-xs text-slate-400">
+                <p className="mt-2 border-t border-[#d8d0bb] pt-2 text-xs text-[#514b3d]">
                   {example.explanation}
                 </p>
               )}
@@ -69,7 +69,7 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
       </SectionCard>
 
       <SectionCard title="Constraints">
-        <ul className="list-inside list-disc space-y-2 text-xs text-slate-300">
+        <ul className="list-inside list-disc space-y-2 text-xs text-[#26351d]">
           {problem.constraints.map((constraint) => (
             <li key={constraint}>{constraint}</li>
           ))}
@@ -80,8 +80,8 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
         <SectionCard title="Hints">
           <div className="space-y-2">
             {problem.hints.map((hint) => (
-              <p key={hint} className="flex gap-2 text-xs text-slate-300">
-                <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-amber-400" />
+              <p key={hint} className="flex gap-2 text-xs text-[#26351d]">
+                <Lightbulb className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#5c6f1d]" />
                 {hint}
               </p>
             ))}
@@ -91,7 +91,7 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
 
       {problem.explanation && (
         <SectionCard title="Explanation">
-          <p className="whitespace-pre-line text-xs leading-relaxed text-slate-300">
+          <p className="whitespace-pre-line text-xs leading-relaxed text-[#26351d]">
             {problem.explanation}
           </p>
         </SectionCard>
@@ -99,3 +99,5 @@ export function ProblemPanel({ problem }: ProblemPanelProps) {
     </div>
   );
 }
+
+

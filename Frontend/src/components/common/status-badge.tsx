@@ -13,10 +13,10 @@ const toneToVariant: Record<StatusTone, BadgeProps['variant']> = {
 };
 
 const toneClasses: Record<StatusTone, string> = {
-  neutral: 'border-slate-700 bg-slate-900 text-slate-300',
-  success: 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400',
-  warning: 'border-amber-500/20 bg-amber-500/10 text-amber-400',
-  danger: 'border-rose-500/20 bg-rose-500/10 text-rose-400',
+  neutral: 'border-[#d8d0bb] bg-[#ece5d5] text-[#514b3d]',
+  success: 'border-[#a5bd3c]/35 bg-[#e8f2ad] text-[#405400]',
+  warning: 'border-[#d7a21d]/30 bg-[#fff1bd] text-[#6b4b00]',
+  danger: 'border-[#c75f4a]/30 bg-[#ffe0d8] text-[#7b2116]',
 };
 
 interface StatusBadgeProps {
@@ -39,3 +39,4 @@ export function StatusBadge({ children, tone = 'neutral', className }: StatusBad
     </Badge>
   );
 }
+

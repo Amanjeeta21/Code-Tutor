@@ -25,7 +25,7 @@ export function ActionButtons({
 
   return (
     <TooltipProvider>
-      <div className="flex items-center justify-between border-t border-slate-800/40 bg-slate-950/20 px-3 py-2 sm:px-4 sm:py-3">
+      <div className="flex items-center justify-between border-t border-[#d8d0bb]/40 bg-[#fffaf0]/20 px-3 py-2 sm:px-4 sm:py-3">
         {/* Left Actions: Reset + Ask Mentor */}
         <div className="flex items-center gap-2">
           <Tooltip>
@@ -33,13 +33,13 @@ export function ActionButtons({
               <Button
                 onClick={onReset}
                 disabled={isPending}
-                className="h-8 rounded-md bg-transparent px-3 text-xs text-slate-400 shadow-none transition-colors hover:bg-slate-800/30 hover:text-slate-100"
+                className="h-8 rounded-md bg-transparent px-3 text-xs text-[#514b3d] shadow-none transition-colors hover:bg-[#ded7c8]/30 hover:text-[#10170d]"
               >
                 <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
                 <span className="hidden sm:inline">Reset</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent className="border-slate-800 bg-slate-950 text-[10px] text-slate-400">
+            <TooltipContent className="border-[#d8d0bb] bg-[#fffaf0] text-[10px] text-[#514b3d]">
               Reset editor code to template
             </TooltipContent>
           </Tooltip>
@@ -52,15 +52,15 @@ export function ActionButtons({
                   disabled={isPending}
                   className={`h-8 rounded-md px-3 text-xs shadow-none transition-colors ${
                     isCoachOpen
-                      ? 'border border-amber-500/30 bg-amber-500/10 text-amber-400 hover:bg-amber-500/15'
-                      : 'bg-transparent text-slate-400 hover:bg-slate-800/30 hover:text-amber-400'
+                      ? 'border border-[#a5bd3c]/30 bg-[#a5bd3c]/10 text-[#5c6f1d] hover:bg-[#a5bd3c]/15'
+                      : 'bg-transparent text-[#514b3d] hover:bg-[#ded7c8]/30 hover:text-[#5c6f1d]'
                   }`}
                 >
                   <BrainCircuit className="mr-1.5 h-3.5 w-3.5" />
                   <span className="hidden sm:inline">Ask Mentor</span>
                 </Button>
               </TooltipTrigger>
-              <TooltipContent className="border-slate-800 bg-slate-950 text-[10px] text-slate-400">
+              <TooltipContent className="border-[#d8d0bb] bg-[#fffaf0] text-[10px] text-[#514b3d]">
                 Toggle Mentor AI panel
               </TooltipContent>
             </Tooltip>
@@ -74,17 +74,17 @@ export function ActionButtons({
               <Button
                 onClick={onRun}
                 disabled={isPending}
-                className="min-h-8 rounded-md border border-slate-700/50 bg-slate-900/40 px-3 text-xs text-slate-300 transition-all hover:border-slate-500 hover:bg-slate-800/50 hover:text-white sm:min-h-9 sm:px-4"
+                className="min-h-8 rounded-md border border-[#c8bea5]/50 bg-[#ece5d5]/40 px-3 text-xs text-[#26351d] transition-all hover:border-[#8a836f] hover:bg-[#ded7c8]/50 hover:text-[#10170d] sm:min-h-9 sm:px-4"
               >
                 {isRunning ? (
-                  <span className="mr-1.5 h-3.5 w-3.5 animate-spin rounded-full border-2 border-slate-400 border-t-transparent" />
+                  <span className="mr-1.5 h-3.5 w-3.5 animate-spin rounded-full border-2 border-[#8a836f] border-t-transparent" />
                 ) : (
                   <Play className="mr-1.5 h-3.5 w-3.5 fill-current" />
                 )}
                 <span>Run<span className="hidden sm:inline"> Code</span></span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent className="border-slate-800 bg-slate-950 font-mono text-[10px] text-slate-400">
+            <TooltipContent className="border-[#d8d0bb] bg-[#fffaf0] font-mono text-[10px] text-[#514b3d]">
               Ctrl + Enter
             </TooltipContent>
           </Tooltip>
@@ -94,7 +94,7 @@ export function ActionButtons({
               <Button
                 onClick={onSubmit}
                 disabled={isPending}
-                className="min-h-9 rounded-md bg-gradient-to-r from-amber-500 to-amber-600 px-5 text-xs font-bold text-slate-950 shadow-[0_0_15px_rgba(245,158,11,0.15)] shadow-md shadow-amber-950/10 transition-all duration-300 hover:from-amber-400 hover:to-amber-500 hover:shadow-[0_0_20px_rgba(245,158,11,0.35)]"
+                className="min-h-9 rounded-md bg-gradient-to-r from-[#a5bd3c] to-[#8aa500] px-5 text-xs font-bold text-[#10170d] shadow-[0_0_15px_rgba(245,158,11,0.15)] shadow-md shadow-[#10200d]/10 transition-all duration-300 hover:from-[#bdd45a] hover:to-[#a5bd3c] hover:shadow-[0_0_20px_rgba(245,158,11,0.35)]"
               >
                 {isSubmitting ? (
                   <span className="mr-1.5 text-xs">⏳</span>
@@ -104,7 +104,7 @@ export function ActionButtons({
                 <span>{isSubmitting ? 'Evaluating...' : 'Submit'}</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent className="border-slate-800 bg-slate-950 font-mono text-[10px] text-slate-400">
+            <TooltipContent className="border-[#d8d0bb] bg-[#fffaf0] font-mono text-[10px] text-[#514b3d]">
               Ctrl + Shift + Enter
             </TooltipContent>
           </Tooltip>
@@ -113,3 +113,4 @@ export function ActionButtons({
     </TooltipProvider>
   );
 }
+
