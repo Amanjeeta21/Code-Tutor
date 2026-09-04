@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Question {
+  id          String          @id @default(uuid())
+  slug        String          @unique
+  title       String
+  difficulty  Difficulty
+  description String
+  constraints String
+  starterCode Json            @map("starter_code")
+  hints       Json            @default("[]")
+  explanation String          @default("")
+  timeLimitMs Int             @default(2000) @map("time_limit_ms")
+  memoryLimitMb Int           @default(256) @map("memory_limit_mb")
+  createdAt   DateTime        @default(now()) @map("created_at")
+  updatedAt   DateTime        @updatedAt @map("updated_at")
+  topics      QuestionTopic[]
+  testCases   TestCase[]
+
+  @@map("questions")
+}
+
+model Topic {
+  id        String          @id @default(uuid())
+  name      String          @unique
+  questions QuestionTopic[]
+
+  @@map("topics")
+}
+
+model QuestionTopic {
+  questionId String   @map("question_id")
+  topicId    String   @map("topic_id")
+  question   Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  topic      Topic    @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  @@id([questionId, topicId])
+  @@map("question_topics")
+}
+
+model TestCase {
+  id             String   @id @default(uuid())
+  questionId     String   @map("question_id")
+  input          String
+  expectedOutput String   @map("expected_output")
+  isHidden       Boolean  @map("is_hidden")
+  explanation    String   @default("")
+  question       Question @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@index([questionId, isHidden])
+  @@map("test_cases")
+}
+
+enum Difficulty {
+  Easy
+  Medium
+  Hard
+}
