@@ -38,6 +38,7 @@ export function PracticePage() {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [loading, setLoading] = useState(true);
   const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' && window.innerWidth < 768);
+  const [openingQuestionId, setOpeningQuestionId] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -115,6 +116,10 @@ export function PracticePage() {
   }, [difficulty, topic, perPage, currentPage, searchTerm]);
 
   const handleActionClick = async (question: Question) => {
+    if (openingQuestionId) return;
+
+    setOpeningQuestionId(question.id);
+
     if (question.status === 'Not Attempted') {
       // Optimistic update for UI
       setQuestions((prev) =>
@@ -123,10 +128,25 @@ export function PracticePage() {
       await simulateAttempt(question.id);
     }
 
-    void navigate({
-      to: '/editor/$problemSlug',
-      params: { problemSlug: question.slug || question.id },
-    });
+    const goToEditor = () => {
+      void navigate({
+        to: '/editor/$problemSlug',
+        params: { problemSlug: question.slug || question.id },
+      });
+    };
+
+    window.setTimeout(() => {
+      const viewTransitionDocument = document as Document & {
+        startViewTransition?: (callback: () => void) => void;
+      };
+
+      if (viewTransitionDocument.startViewTransition) {
+        viewTransitionDocument.startViewTransition(goToEditor);
+        return;
+      }
+
+      goToEditor();
+    }, 180);
   };
 
   const themeClass = isDark
@@ -168,24 +188,7 @@ export function PracticePage() {
       <TopNavigation activeTab="practice" />
 
       {/* Main Content */}
-      <main className="relative z-10 mx-auto max-w-[1400px] px-4 pb-32 pt-36 sm:px-6 lg:px-8">
-        {/* Animated Header */}
-        <div className="mb-12 flex flex-col items-center text-center">
-          <motion.h1
-            initial={{ opacity: 0, y: 30, filter: 'blur(10px)', scale: 0.97 }}
-            animate={{ opacity: 1, y: 0, filter: 'blur(0px)', scale: 1 }}
-            transition={{ duration: 1.5, ease: 'easeOut' }}
-            className={cn(
-              'flex flex-wrap justify-center bg-gradient-to-b bg-clip-text text-5xl font-black tracking-tighter text-transparent md:text-7xl',
-              isDark
-                ? 'from-[#10170d] via-[#26351d] to-[#8aa500]'
-                : 'from-[#10170d] via-[#26351d] to-[#8aa500]',
-            )}
-          >
-            PRACTICE
-          </motion.h1>
-        </div>
-
+      <main className="relative z-10 ml-[var(--app-sidebar-width,5rem)] max-w-[1400px] px-4 pb-32 pt-8 transition-[margin] duration-300 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -314,6 +317,7 @@ export function PracticePage() {
                   {questions.map((q, index) => {
                     const absoluteIndex = (currentPage - 1) * perPage + index + 1;
                     const isAttempted = q.status !== 'Not Attempted';
+                    const isOpening = openingQuestionId === q.id;
                     return (
                       <motion.div
                         key={q.id}
@@ -383,8 +387,9 @@ export function PracticePage() {
 
                           <button
                             onClick={() => void handleActionClick(q)}
+                            disabled={Boolean(openingQuestionId)}
                             className={cn(
-                              'rounded-lg px-4 py-2 text-xs font-bold shadow-sm transition-all',
+                              'rounded-lg px-4 py-2 text-xs font-bold shadow-sm transition-all disabled:cursor-wait disabled:opacity-70',
                               isAttempted
                                 ? isDark
                                   ? 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
@@ -392,7 +397,7 @@ export function PracticePage() {
                                 : 'bg-[#a5bd3c] text-[#10170d] shadow-[#10200d]/10 hover:bg-[#bdd45a]',
                             )}
                           >
-                            {isAttempted ? 'Reattempt' : 'Solve'}
+                            {isOpening ? 'Opening...' : isAttempted ? 'Reattempt' : 'Solve'}
                           </button>
                         </div>
                       </motion.div>
@@ -430,6 +435,7 @@ export function PracticePage() {
                       {questions.map((q, index) => {
                         const absoluteIndex = (currentPage - 1) * perPage + index + 1;
                         const isAttempted = q.status !== 'Not Attempted';
+                        const isOpening = openingQuestionId === q.id;
 
                         return (
                           <motion.tr
@@ -507,8 +513,9 @@ export function PracticePage() {
                             <td className="px-6 py-4 text-right">
                               <button
                                 onClick={() => void handleActionClick(q)}
+                                disabled={Boolean(openingQuestionId)}
                                 className={cn(
-                                  'rounded-lg px-4 py-1.5 text-xs font-bold shadow-sm transition-all',
+                                  'rounded-lg px-4 py-1.5 text-xs font-bold shadow-sm transition-all disabled:cursor-wait disabled:opacity-70',
                                   isAttempted
                                     ? isDark
                                       ? 'bg-[#ece5d5] text-[#10170d] hover:bg-[#ded7c8]'
@@ -516,7 +523,7 @@ export function PracticePage() {
                                     : 'bg-[#a5bd3c] text-[#10170d] shadow-[#10200d]/10 hover:bg-[#bdd45a]',
                                 )}
                               >
-                                {isAttempted ? 'Reattempt' : 'Solve'}
+                                {isOpening ? 'Opening...' : isAttempted ? 'Reattempt' : 'Solve'}
                               </button>
                             </td>
                           </motion.tr>
@@ -611,6 +618,11 @@ export function PracticePage() {
     </div>
   );
 }
+
+
+
+
+
 
 
 
