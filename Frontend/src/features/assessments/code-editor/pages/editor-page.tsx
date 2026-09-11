@@ -61,6 +61,8 @@ interface BackendProblem {
 }
 
 function mapBackendToEditorProblem(q: BackendProblem): Problem {
+  const starterCodeEntries = Object.entries(q.starter_code || {}).filter(([, code]) => Boolean(code?.trim()));
+  const templates = Object.fromEntries(starterCodeEntries) as Problem['templates'];
   const sampleCases = (q.test_cases || [])
     .filter((tc) => !tc.is_hidden)
     .map((tc, index: number) => ({
@@ -87,13 +89,7 @@ function mapBackendToEditorProblem(q: BackendProblem): Problem {
       expected_output: tc.expected_output,
       is_hidden: tc.is_hidden,
     })),
-    templates: {
-      javascript: q.starter_code?.javascript || '',
-      python: q.starter_code?.python || '',
-      typescript: q.starter_code?.typescript || '',
-      java: q.starter_code?.java || '',
-      cpp: q.starter_code?.cpp || '',
-    },
+    templates,
     timeLimitMs: q.time_limit || 2000,
     memoryLimitMb: q.memory_limit || 256,
   };
@@ -107,6 +103,7 @@ export function EditorPage() {
 
   useEffect(() => {
     if (!problemSlug) return;
+    const resolvedProblemSlug = problemSlug;
     let active = true;
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setLoading(true);
@@ -114,7 +111,10 @@ export function EditorPage() {
 
     async function loadProblem() {
       try {
-        const res = await fetch(`/api/questions/${problemSlug}`);
+        let res = await fetch(`/api/questions/${resolvedProblemSlug}`);
+        if (!res.ok && /^CF_\d+$/i.test(resolvedProblemSlug)) {
+          res = await fetch(`/api/external-questions/${resolvedProblemSlug}`);
+        }
         if (!res.ok) {
           throw new Error('Problem not found');
         }
@@ -994,4 +994,6 @@ function EditorWorkspace({ problem }: { problem: Problem }) {
     </main>
   );
 }
+
+
 

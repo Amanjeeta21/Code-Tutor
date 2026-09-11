@@ -109,7 +109,7 @@ export function TopNavigation({ isDark: propIsDark, setIsDark: propSetIsDark, ac
 
   const handleLogout = async () => {
     await logout();
-    void navigate({ to: '/auth/login' });
+    void navigate({ to: '/signup' });
   };
 
   const handleSendMessage = () => {

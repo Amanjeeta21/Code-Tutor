@@ -60,6 +60,7 @@ export function CodeEditor({
   const monacoRef    = useRef<any>(null);
   const decorationsRef = useRef<string[]>([]);
   const overlayRef   = useRef<HTMLDivElement | null>(null);
+  const internalClipboardRef = useRef<string | null>(null);
   const [editorMounted, setEditorMounted] = useState(false);
 
   const monacoTheme = 'code-tutor-light';
@@ -175,6 +176,51 @@ export function CodeEditor({
     };
   }, [lineIssues, editorMounted]);
 
+  useEffect(() => {
+    const editor = editorRef.current;
+    if (!editor) return;
+
+    const editorDom = editor.getDomNode() as HTMLElement | null;
+    if (!editorDom) return;
+
+    const rememberInternalSelection = (event: ClipboardEvent) => {
+      const selection = editor.getSelection();
+      const selectedText = selection ? editor.getModel()?.getValueInRange(selection) : '';
+
+      if (selectedText) {
+        internalClipboardRef.current = selectedText;
+        event.clipboardData?.setData('text/plain', selectedText);
+      }
+    };
+
+    const blockExternalPaste = (event: ClipboardEvent) => {
+      const pastedText = event.clipboardData?.getData('text/plain') ?? '';
+      const internalText = internalClipboardRef.current;
+
+      if (!pastedText || pastedText === internalText) return;
+
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    const blockDrop = (event: DragEvent) => {
+      event.preventDefault();
+      event.stopPropagation();
+    };
+
+    editorDom.addEventListener('copy', rememberInternalSelection, true);
+    editorDom.addEventListener('cut', rememberInternalSelection, true);
+    editorDom.addEventListener('paste', blockExternalPaste, true);
+    editorDom.addEventListener('drop', blockDrop, true);
+
+    return () => {
+      editorDom.removeEventListener('copy', rememberInternalSelection, true);
+      editorDom.removeEventListener('cut', rememberInternalSelection, true);
+      editorDom.removeEventListener('paste', blockExternalPaste, true);
+      editorDom.removeEventListener('drop', blockDrop, true);
+    };
+  }, [editorMounted]);
+
   const handleEditorMount: OnMount = (editor, monaco) => {
     monaco.editor.defineTheme('code-tutor-light', {
       base: 'vs',
@@ -268,3 +314,4 @@ export function CodeEditor({
     </div>
   );
 }
+

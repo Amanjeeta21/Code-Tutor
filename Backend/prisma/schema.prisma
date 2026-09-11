@@ -7,22 +7,57 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id             String    @id @default(cuid())
+  username       String    @unique
+  email          String    @unique
+  password       String
+  fullName       String?   @map("full_name")
+  bio            String?
+  role           String?
+  gender         String?
+  dateOfBirth    String?   @map("date_of_birth")
+  language       String?
+  editorLanguage String?   @map("editor_language")
+  image          String?
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  sessions       Session[]
+
+  @@map("users")
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  expiresAt DateTime @map("expires_at")
+  ipAddress String?  @map("ip_address")
+  userAgent String?  @map("user_agent")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  userId    String   @map("user_id")
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("sessions")
+}
+
 model Question {
-  id          String          @id @default(uuid())
-  slug        String          @unique
-  title       String
-  difficulty  Difficulty
-  description String
-  constraints String
-  starterCode Json            @map("starter_code")
-  hints       Json            @default("[]")
-  explanation String          @default("")
-  timeLimitMs Int             @default(2000) @map("time_limit_ms")
-  memoryLimitMb Int           @default(256) @map("memory_limit_mb")
-  createdAt   DateTime        @default(now()) @map("created_at")
-  updatedAt   DateTime        @updatedAt @map("updated_at")
-  topics      QuestionTopic[]
-  testCases   TestCase[]
+  id            String          @id @default(uuid())
+  slug          String          @unique
+  title         String
+  difficulty    Difficulty
+  description   String
+  constraints   String
+  starterCode   Json            @map("starter_code")
+  hints         Json            @default("[]")
+  explanation   String          @default("")
+  timeLimitMs   Int             @default(2000) @map("time_limit_ms")
+  memoryLimitMb Int             @default(256) @map("memory_limit_mb")
+  createdAt     DateTime        @default(now()) @map("created_at")
+  updatedAt     DateTime        @updatedAt @map("updated_at")
+  topics        QuestionTopic[]
+  testCases     TestCase[]
 
   @@map("questions")
 }

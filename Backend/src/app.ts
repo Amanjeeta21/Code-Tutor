@@ -4,6 +4,7 @@ import express from 'express';
 import helmet from 'helmet';
 import morgan from 'morgan';
 
+import authRoutes from './features/authentication/routes/auth.routes.js';
 import questionRoutes from './features/questions/question.routes.js';
 
 export const app = express();
@@ -29,9 +30,11 @@ app.get('/api/progress/summary', (_req, res) => {
   });
 });
 
+app.use('/api/auth', authRoutes);
 app.use('/api', questionRoutes);
 
 app.use((err: unknown, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
   console.error(err);
   res.status(500).json({ error: err instanceof Error ? err.message : 'Internal server error' });
 });
+
